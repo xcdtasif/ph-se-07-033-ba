@@ -29,7 +29,7 @@ Local assumes `PORT=5000` in `.env.local`.
 | Variable           | Scope       | Used by                        | Value                                           |
 | ------------------ | ----------- | ------------------------------ | ----------------------------------------------- |
 | `baseUrl`          | Environment | Every request                  | The API root of the selected environment        |
-| `uploadthingAppId` | Collection  | **Create Property** image URLs | `0j6bmu5elp`, the server's `UPLOADTHING_APP_ID` |
+| `uploadthingAppId` | Collection  | **Create Property** image URLs | `o3vpd4m2kj`, the server's `UPLOADTHING_APP_ID` |
 
 `uploadthingAppId` comes with the collection, so nothing needs setting up for it on the deployed API.
 
