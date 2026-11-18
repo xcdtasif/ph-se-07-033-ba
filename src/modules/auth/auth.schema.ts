@@ -3,7 +3,7 @@ import z from "zod"
 import { UserRole } from "../../generated/prisma/enums.js"
 import { nameSchema } from "../user/user.schema.js"
 
-export const registerUserSchema = z.strictObject({
+export const signupUserSchema = z.strictObject({
   name: nameSchema,
   email: z.string().trim().toLowerCase().pipe(z.email()),
   password: z
@@ -16,7 +16,7 @@ export const registerUserSchema = z.strictObject({
   role: z.enum(UserRole).exclude(["ADMIN"]),
 })
 
-export type RegisterUserPayload = z.output<typeof registerUserSchema>
+export type SignupUserPayload = z.output<typeof signupUserSchema>
 
 export const loginUserSchema = z.strictObject({
   email: z.string().trim().toLowerCase().pipe(z.email()),

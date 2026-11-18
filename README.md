@@ -14,7 +14,7 @@ Live API: <https://ph-se-07-026.vercel.app>
 | Landlord | List properties with images, approve or reject requests, complete rentals, read their reviews |
 | Admin    | Ban or unban users, hide properties and reviews, view all requests, manage categories         |
 
-Users pick `TENANT` or `LANDLORD` when they register. Admins are created by the seed script only.
+Users pick `TENANT` or `LANDLORD` when they sign up. Admins are created by the seed script only.
 
 ### Rental Flow
 
@@ -158,7 +158,7 @@ validation rules and responses.
 
 | Module                                | Covers                                               |
 | ------------------------------------- | ---------------------------------------------------- |
-| [Auth](docs/api-docs/auth.md)         | Register, login, logout, token refresh               |
+| [Auth](docs/api-docs/auth.md)         | Signup, login, logout, token refresh                 |
 | [User](docs/api-docs/user.md)         | Own profile, admin user list, ban and unban          |
 | [Category](docs/api-docs/category.md) | Property categories                                  |
 | [Property](docs/api-docs/property.md) | Public browse, landlord management, admin moderation |
@@ -175,7 +175,7 @@ against your own server, see the [Postman Guide](docs/postman-guide.md).
 
 #### Authentication
 
-Authentication uses two `httpOnly` cookies, set on register, login and refresh:
+Authentication uses two `httpOnly` cookies, set on signup, login and refresh:
 
 | Cookie         | Used for                      |
 | -------------- | ----------------------------- |

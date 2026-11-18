@@ -2,17 +2,17 @@ import { Router } from "express"
 
 import { validate } from "../../middlewares/validate.js"
 import { authController } from "./auth.controller.js"
-import { loginUserSchema, registerUserSchema } from "./auth.schema.js"
+import { loginUserSchema, signupUserSchema } from "./auth.schema.js"
 
 const router = Router()
 
-// Register User
-router.post("/register", validate(registerUserSchema, "body"), authController.registerUser)
+// Sign Up User
+router.post("/signup", validate(signupUserSchema, "body"), authController.signupUser)
 
-// Login User
+// Log In User
 router.post("/login", validate(loginUserSchema, "body"), authController.loginUser)
 
-// Logout User
+// Log Out User
 router.post("/logout", authController.logoutUser)
 
 // Refresh Tokens

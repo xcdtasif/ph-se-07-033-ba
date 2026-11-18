@@ -4,18 +4,18 @@ import httpStatus from "http-status"
 import { AppError } from "../../utils/app-error.js"
 import { sendResponse } from "../../utils/send-response.js"
 import { authCookies } from "./auth.cookies.js"
-import type { LoginUserPayload, RegisterUserPayload } from "./auth.schema.js"
+import type { LoginUserPayload, SignupUserPayload } from "./auth.schema.js"
 import { authService } from "./auth.service.js"
 
-const registerUser = async (req: Request<{}, {}, RegisterUserPayload>, res: Response) => {
-  const { user, accessToken, refreshToken } = await authService.registerUser(req.body)
+const signupUser = async (req: Request<{}, {}, SignupUserPayload>, res: Response) => {
+  const { user, accessToken, refreshToken } = await authService.signupUser(req.body)
 
   authCookies.setAuthCookies(res, accessToken, refreshToken)
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.CREATED,
-    message: "User registered successfully",
+    message: "Signed up successfully",
     data: user,
   })
 }
@@ -62,4 +62,4 @@ const refreshTokens = async (req: Request, res: Response) => {
   })
 }
 
-export const authController = { registerUser, loginUser, logoutUser, refreshTokens }
+export const authController = { signupUser, loginUser, logoutUser, refreshTokens }

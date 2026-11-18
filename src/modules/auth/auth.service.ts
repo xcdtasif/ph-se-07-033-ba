@@ -2,10 +2,10 @@ import httpStatus from "http-status"
 
 import { prisma } from "../../lib/prisma.js"
 import { AppError } from "../../utils/app-error.js"
-import type { LoginUserPayload, RegisterUserPayload } from "./auth.schema.js"
+import type { LoginUserPayload, SignupUserPayload } from "./auth.schema.js"
 import { authUtils } from "./auth.utils.js"
 
-const registerUser = async (payload: RegisterUserPayload) => {
+const signupUser = async (payload: SignupUserPayload) => {
   const { name, email, password, role } = payload
 
   const existingUser = await prisma.user.findUnique({
@@ -83,7 +83,7 @@ const refreshTokens = async (token: string) => {
 }
 
 export const authService = {
-  registerUser,
+  signupUser,
   loginUser,
   refreshTokens,
 }

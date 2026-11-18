@@ -4,12 +4,12 @@
 
 `:name` is a path param, `?…` means query params and `{…}` means a request body. Details are in each section.
 
-| Name                              | Endpoint                      | Access        |
-| --------------------------------- | ----------------------------- | ------------- |
-| [Register User](#register-user)   | `POST /api/auth/register {…}` | Public        |
-| [Login User](#login-user)         | `POST /api/auth/login {…}`    | Public        |
-| [Logout User](#logout-user)       | `POST /api/auth/logout`       | Public        |
-| [Refresh Tokens](#refresh-tokens) | `POST /api/auth/refresh`      | Authenticated |
+| Name                              | Endpoint                    | Access        |
+| --------------------------------- | --------------------------- | ------------- |
+| [Sign Up User](#sign-up-user)     | `POST /api/auth/signup {…}` | Public        |
+| [Log In User](#log-in-user)       | `POST /api/auth/login {…}`  | Public        |
+| [Log Out User](#log-out-user)     | `POST /api/auth/logout`     | Public        |
+| [Refresh Tokens](#refresh-tokens) | `POST /api/auth/refresh`    | Authenticated |
 
 ## User Object
 
@@ -29,20 +29,20 @@ Returned by every auth endpoint that responds with a user. The password is never
 
 ---
 
-## Register User
+## Sign Up User
 
-`POST /api/auth/register` · Public
+`POST /api/auth/signup` · Public
 
 Creates an account and signs the user in (sets both auth cookies).
 
 **Body**
 
-| Field      | Type   | Rules                                                |
-| ---------- | ------ | ---------------------------------------------------- |
-| `name`     | string | Trimmed, 2 to 100 characters                         |
-| `email`    | string | Valid email, trimmed and lowercased                  |
-| `password` | string | 8 to 72 characters (and at most 72 bytes)            |
-| `role`     | string | `LANDLORD` or `TENANT` (`ADMIN` can't self-register) |
+| Field      | Type   | Rules                                          |
+| ---------- | ------ | ---------------------------------------------- |
+| `name`     | string | Trimmed, 2 to 100 characters                   |
+| `email`    | string | Valid email, trimmed and lowercased            |
+| `password` | string | 8 to 72 characters (and at most 72 bytes)      |
+| `role`     | string | `LANDLORD` or `TENANT` (`ADMIN` can't sign up) |
 
 **Example**
 
@@ -57,15 +57,15 @@ Creates an account and signs the user in (sets both auth cookies).
 
 **Responses**
 
-| Status | When                 | Message                        |
-| ------ | -------------------- | ------------------------------ |
-| 201    | Success              | `User registered successfully` |
-| 400    | Validation failed    | `Validation of body failed`    |
-| 409    | Email already exists | `User already exists`          |
+| Status | When                 | Message                     |
+| ------ | -------------------- | --------------------------- |
+| 201    | Success              | `Signed up successfully`    |
+| 400    | Validation failed    | `Validation of body failed` |
+| 409    | Email already exists | `User already exists`       |
 
 ---
 
-## Login User
+## Log In User
 
 `POST /api/auth/login` · Public
 
@@ -98,7 +98,7 @@ Signs in and sets both auth cookies.
 
 ---
 
-## Logout User
+## Log Out User
 
 `POST /api/auth/logout` · Public
 
