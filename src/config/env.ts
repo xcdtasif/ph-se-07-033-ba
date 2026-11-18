@@ -1,8 +1,8 @@
 import path from "path"
 
 import dotenv from "dotenv"
-
-import type { ExpiresIn } from "../utils/jwt.js"
+import ms from "ms"
+import type { StringValue } from "ms"
 
 dotenv.config({ path: path.join(process.cwd(), ".env.local") })
 
@@ -22,14 +22,19 @@ function getEnvAsNumber(key: string): number {
   return value
 }
 
-function getEnvAsExpiresIn(key: string): ExpiresIn {
-  const value = getEnv(key)
+function getEnvAsDuration(key: string): StringValue {
+  const value = getEnv(key) as StringValue
+  const duration = ms(value)
 
-  if (!/^\d+[smhd]$/.test(value)) {
-    throw new Error(`Environment variable ${key} must look like "15m", "7d", "30s" or "2h"`)
+  // ms returns undefined for unparsable input and accepts negatives like "-1d".
+  // jsonwebtoken rounds down to whole seconds, so anything under 1s expires at once.
+  if (!Number.isFinite(duration) || duration < 1000) {
+    throw new Error(
+      `Environment variable ${key} must be longer than 1 sec, like "15m", "7d" or "2 days"`,
+    )
   }
 
-  return value as ExpiresIn
+  return value
 }
 
 const nodeEnv = getEnv("NODE_ENV")
@@ -50,9 +55,9 @@ export const env = {
   BCRYPT_SALT_ROUNDS: getEnvAsNumber("BCRYPT_SALT_ROUNDS"),
 
   JWT_ACCESS_SECRET: getEnv("JWT_ACCESS_SECRET"),
-  JWT_ACCESS_TOKEN_EXPIRES_IN: getEnvAsExpiresIn("JWT_ACCESS_TOKEN_EXPIRES_IN"),
+  JWT_ACCESS_TOKEN_EXPIRES_IN: getEnvAsDuration("JWT_ACCESS_TOKEN_EXPIRES_IN"),
   JWT_REFRESH_SECRET: getEnv("JWT_REFRESH_SECRET"),
-  JWT_REFRESH_TOKEN_EXPIRES_IN: getEnvAsExpiresIn("JWT_REFRESH_TOKEN_EXPIRES_IN"),
+  JWT_REFRESH_TOKEN_EXPIRES_IN: getEnvAsDuration("JWT_REFRESH_TOKEN_EXPIRES_IN"),
 
   STRIPE_SECRET_KEY: getEnv("STRIPE_SECRET_KEY"),
   STRIPE_PRODUCT_ID: getEnv("STRIPE_PRODUCT_ID"),

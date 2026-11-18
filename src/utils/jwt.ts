@@ -1,6 +1,6 @@
 import httpStatus from "http-status"
 import jwt from "jsonwebtoken"
-import type { SignOptions } from "jsonwebtoken"
+import type { StringValue } from "ms"
 import z from "zod"
 
 import { UserRole } from "../generated/prisma/enums.js"
@@ -14,9 +14,8 @@ export const tokenPayloadSchema = z.object({
 })
 
 export type TokenPayload = z.output<typeof tokenPayloadSchema>
-export type ExpiresIn = NonNullable<SignOptions["expiresIn"]>
 
-const createToken = (payload: TokenPayload, secret: string, expiresIn: ExpiresIn): string =>
+const createToken = (payload: TokenPayload, secret: string, expiresIn: StringValue): string =>
   jwt.sign(payload, secret, { algorithm: ALGORITHM, expiresIn })
 
 const verifyToken = (token: string, secret: string): TokenPayload => {
