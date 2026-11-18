@@ -44,13 +44,13 @@ fails with `400 Validation of body failed`.
 The API authenticates with `httpOnly` cookies (`accessToken` and `refreshToken`). Postman keeps them
 in its cookie jar, so there's no token to copy.
 
-1. Send **Auth / Public / Login User** with the account for the role you want to test.
+1. Send **Auth / Public / Log In User** with the account for the role you want to test.
 2. Send the requests for that role. The cookie is attached automatically.
 3. To switch roles, log in again as the other user. A new login replaces the cookie.
 
 Sample accounts come from `npm run db:seed` and are listed under
 [Seed Data](../README.md#seed-data). The admin account is the one in `ADMIN_EMAIL` and
-`ADMIN_PASSWORD`. Edit the email and password in the **Login User** body to switch accounts.
+`ADMIN_PASSWORD`. Edit the email and password in the **Log In User** body to switch accounts.
 `401` means the cookie is missing or expired. Log in again, or send **Refresh Tokens**.
 
 ## Example IDs And Bodies

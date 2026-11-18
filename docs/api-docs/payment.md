@@ -104,7 +104,7 @@ The `201` response is a payment object with an extra `checkoutUrl` (the Stripe C
 | ------ | ------------------------------------- | -------------------------------------- |
 | 201    | Success                               | `Payment created successfully`         |
 | 400    | Validation failed                     | `Validation of body failed`            |
-| 401    | Not signed in                         | `Authentication required`              |
+| 401    | Not logged in                         | `Authentication required`              |
 | 403    | Not a tenant                          | `You don't have permission to do this` |
 | 403    | Request belongs to someone            | `This request isn't yours`             |
 | 404    | Request not found                     | `Request not found`                    |
@@ -147,7 +147,7 @@ GET /api/tenant/payments?page=1&limit=10&status=COMPLETED
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Payments fetched successfully`        |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not a tenant      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
@@ -164,7 +164,7 @@ GET /api/tenant/payments?page=1&limit=10&status=COMPLETED
 | ------ | -------------------- | -------------------------------------- |
 | 200    | Success              | `Payment fetched successfully`         |
 | 400    | Invalid `id`         | `Validation of params failed`          |
-| 401    | Not signed in        | `Authentication required`              |
+| 401    | Not logged in        | `Authentication required`              |
 | 403    | Not a tenant         | `You don't have permission to do this` |
 | 403    | Payment isn't theirs | `This payment isn't yours`             |
 | 404    | Payment not found    | `Payment not found`                    |

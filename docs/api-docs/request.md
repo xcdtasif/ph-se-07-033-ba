@@ -113,7 +113,7 @@ A tenant can have only one `PENDING`, `APPROVED` or `ACTIVE` request per propert
 | ------ | ---------------------------- | ---------------------------------------------------- |
 | 201    | Success                      | `Request created successfully`                       |
 | 400    | Validation failed            | `Validation of body failed`                          |
-| 401    | Not signed in                | `Authentication required`                            |
+| 401    | Not logged in                | `Authentication required`                            |
 | 403    | Not a tenant                 | `You don't have permission to do this`               |
 | 404    | Property not found or hidden | `Property not found`                                 |
 | 409    | Property isn't `AVAILABLE`   | `Property isn't available`                           |
@@ -147,7 +147,7 @@ GET /api/tenant/requests?page=1&limit=10&status=PENDING
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Requests fetched successfully`        |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not a tenant      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
@@ -164,7 +164,7 @@ GET /api/tenant/requests?page=1&limit=10&status=PENDING
 | ------ | --------------------------------- | -------------------------------------- |
 | 200    | Success                           | `Request fetched successfully`         |
 | 400    | Validation failed                 | `Validation of params failed`          |
-| 401    | Not signed in                     | `Authentication required`              |
+| 401    | Not logged in                     | `Authentication required`              |
 | 403    | Not a tenant                      | `You don't have permission to do this` |
 | 403    | Request belongs to another tenant | `This request isn't yours`             |
 | 404    | Request not found                 | `Request not found`                    |
@@ -198,7 +198,7 @@ allowed even when the property is hidden or its landlord is banned.
 | ------ | -------------------------------------------------- | -------------------------------------------------------------- |
 | 200    | Success                                            | `Request cancelled successfully`                               |
 | 400    | Validation failed                                  | `Validation of params failed` or `Validation of body failed`   |
-| 401    | Not signed in                                      | `Authentication required`                                      |
+| 401    | Not logged in                                      | `Authentication required`                                      |
 | 403    | Not a tenant                                       | `You don't have permission to do this`                         |
 | 403    | Request belongs to another tenant                  | `This request isn't yours`                                     |
 | 404    | Request not found                                  | `Request not found`                                            |
@@ -227,7 +227,7 @@ GET /api/landlord/requests?page=1&limit=10&status=PENDING
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Requests fetched successfully`        |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not a landlord    | `You don't have permission to do this` |
 
 ---
@@ -256,7 +256,7 @@ GET /api/landlord/requests?page=1&limit=10&status=PENDING
 | ------ | ------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | 200    | Success                                                 | `Request status updated successfully`                                            |
 | 400    | Validation failed                                       | `Validation of params failed` or `Validation of body failed`                     |
-| 401    | Not signed in                                           | `Authentication required`                                                        |
+| 401    | Not logged in                                           | `Authentication required`                                                        |
 | 403    | Not a landlord                                          | `You don't have permission to do this`                                           |
 | 403    | Property belongs to another landlord                    | `This request isn't for your property`                                           |
 | 404    | Request not found                                       | `Request not found`                                                              |
@@ -296,7 +296,7 @@ GET /api/admin/requests?page=1&limit=10&status=APPROVED
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Requests fetched successfully`        |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not an admin      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.

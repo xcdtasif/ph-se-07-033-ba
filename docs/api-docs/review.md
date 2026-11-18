@@ -117,7 +117,7 @@ GET /api/properties/6f1c2d3e-0000-4000-8000-000000000000/reviews?page=1&limit=10
 | ------ | -------------------------- | ---------------------------------------- |
 | 201    | Success                    | `Review created successfully`            |
 | 400    | Validation failed          | `Validation of body failed`              |
-| 401    | Not signed in              | `Authentication required`                |
+| 401    | Not logged in              | `Authentication required`                |
 | 403    | Not a tenant               | `You don't have permission to do this`   |
 | 403    | Request belongs to another | `This request isn't yours`               |
 | 404    | Request not found          | `Request not found`                      |
@@ -151,7 +151,7 @@ GET /api/tenant/reviews?page=1&limit=10
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Reviews fetched successfully`         |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not a tenant      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
@@ -168,7 +168,7 @@ GET /api/tenant/reviews?page=1&limit=10
 | ------ | -------------------------------- | -------------------------------------- |
 | 200    | Success                          | `Review fetched successfully`          |
 | 400    | Validation failed                | `Validation of params failed`          |
-| 401    | Not signed in                    | `Authentication required`              |
+| 401    | Not logged in                    | `Authentication required`              |
 | 403    | Not a tenant                     | `You don't have permission to do this` |
 | 403    | Review belongs to another tenant | `This review isn't yours`              |
 | 404    | Review not found                 | `Review not found`                     |
@@ -201,7 +201,7 @@ GET /api/landlord/reviews?page=1&limit=10&propertyId=6f1c2d3e-0000-4000-8000-000
 | ------ | ------------------------------------ | -------------------------------------- |
 | 200    | Success                              | `Reviews fetched successfully`         |
 | 400    | Validation failed                    | `Validation of query failed`           |
-| 401    | Not signed in                        | `Authentication required`              |
+| 401    | Not logged in                        | `Authentication required`              |
 | 403    | Not a landlord                       | `You don't have permission to do this` |
 | 403    | Property belongs to another landlord | `You don't own this property`          |
 | 404    | `propertyId` matches no property     | `Property not found`                   |
@@ -238,7 +238,7 @@ GET /api/admin/reviews?page=1&limit=10&isHidden=false
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Reviews fetched successfully`         |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not an admin      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
@@ -271,6 +271,6 @@ Hides or unhides a review, for example an obscene comment.
 | ------ | ----------------- | -------------------------------------------------------------- |
 | 200    | Success           | `Review hidden successfully` or `Review unhidden successfully` |
 | 400    | Validation failed | `Validation of params failed` or `Validation of body failed`   |
-| 401    | Not signed in     | `Authentication required`                                      |
+| 401    | Not logged in     | `Authentication required`                                      |
 | 403    | Not an admin      | `You don't have permission to do this`                         |
 | 404    | Review not found  | `Review not found`                                             |

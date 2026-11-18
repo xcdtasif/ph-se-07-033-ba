@@ -163,7 +163,7 @@ GET /api/landlord/properties?page=1&limit=10&status=AVAILABLE
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Properties fetched successfully`      |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not a landlord    | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
@@ -214,7 +214,7 @@ other host are rejected.
 | ------ | ---------------------- | -------------------------------------- |
 | 201    | Success                | `Property created successfully`        |
 | 400    | Validation failed      | `Validation of body failed`            |
-| 401    | Not signed in          | `Authentication required`              |
+| 401    | Not logged in          | `Authentication required`              |
 | 403    | Not a landlord         | `You don't have permission to do this` |
 | 404    | Category doesn't exist | `Category not found`                   |
 
@@ -278,7 +278,7 @@ A `RENTED` property can still be edited, except for its `status`.
 | ------ | ------------------------------------------------------ | ------------------------------------------------------------ |
 | 200    | Success                                                | `Property updated successfully`                              |
 | 400    | Validation failed                                      | `Validation of params failed` or `Validation of body failed` |
-| 401    | Not signed in                                          | `Authentication required`                                    |
+| 401    | Not logged in                                          | `Authentication required`                                    |
 | 403    | Not a landlord                                         | `You don't have permission to do this`                       |
 | 403    | Property belongs to another landlord                   | `You don't own this property`                                |
 | 404    | Property or category not found                         | `Property not found` or `Category not found`                 |
@@ -305,7 +305,7 @@ The property's images are deleted from UploadThing, unless another property stil
 | ------ | ------------------------------------ | ------------------------------------------------------------------------ |
 | 200    | Success                              | `Property deleted successfully`                                          |
 | 400    | Validation failed                    | `Validation of params failed`                                            |
-| 401    | Not signed in                        | `Authentication required`                                                |
+| 401    | Not logged in                        | `Authentication required`                                                |
 | 403    | Not a landlord                       | `You don't have permission to do this`                                   |
 | 403    | Property belongs to another landlord | `You don't own this property`                                            |
 | 404    | Property not found                   | `Property not found`                                                     |
@@ -344,7 +344,7 @@ GET /api/admin/properties?page=1&limit=10&isHidden=true
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Properties fetched successfully`      |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not an admin      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
@@ -378,6 +378,6 @@ Hides or unhides a property. A hidden property follows the [visibility](#visibil
 | ------ | ------------------ | ------------------------------------------------------------------ |
 | 200    | Success            | `Property hidden successfully` or `Property unhidden successfully` |
 | 400    | Validation failed  | `Validation of params failed` or `Validation of body failed`       |
-| 401    | Not signed in      | `Authentication required`                                          |
+| 401    | Not logged in      | `Authentication required`                                          |
 | 403    | Not an admin       | `You don't have permission to do this`                             |
 | 404    | Property not found | `Property not found`                                               |

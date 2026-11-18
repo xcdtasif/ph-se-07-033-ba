@@ -38,7 +38,7 @@ Returns the signed-in user.
 | Status | When                         | Message                        |
 | ------ | ---------------------------- | ------------------------------ |
 | 200    | Success                      | `Profile fetched successfully` |
-| 401    | Not signed in / user deleted | `Authentication required`      |
+| 401    | Not logged in / user deleted | `Authentication required`      |
 | 403    | Account is banned            | `Your account has been banned` |
 
 ---
@@ -71,7 +71,7 @@ Unknown fields, such as `role`, `email` or `isBanned`, are rejected with `400`.
 | ------ | ---------------------------- | ------------------------------ |
 | 200    | Success                      | `Profile updated successfully` |
 | 400    | Validation failed            | `Validation of body failed`    |
-| 401    | Not signed in / user deleted | `Authentication required`      |
+| 401    | Not logged in / user deleted | `Authentication required`      |
 | 403    | Account is banned            | `Your account has been banned` |
 
 ---
@@ -104,7 +104,7 @@ GET /api/admin/users?page=1&limit=10&role=LANDLORD&isBanned=false
 | ------ | ----------------- | -------------------------------------- |
 | 200    | Success           | `Users fetched successfully`           |
 | 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not an admin      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
@@ -137,7 +137,7 @@ Bans or unbans a user. See [Banning](#banning).
 | ------ | -------------------- | ------------------------------------------------------------ |
 | 200    | Success              | `User banned successfully` or `User unbanned successfully`   |
 | 400    | Validation failed    | `Validation of params failed` or `Validation of body failed` |
-| 401    | Not signed in        | `Authentication required`                                    |
+| 401    | Not logged in        | `Authentication required`                                    |
 | 403    | Not an admin         | `You don't have permission to do this`                       |
 | 403    | The user is an admin | `Admin accounts can't be banned`                             |
 | 404    | User not found       | `User not found`                                             |

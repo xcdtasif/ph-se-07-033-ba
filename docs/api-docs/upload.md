@@ -48,6 +48,6 @@ UploadThing's signature instead. Clients never call it.
 
 | Status | When              | Message                                |
 | ------ | ----------------- | -------------------------------------- |
-| 401    | Not signed in     | `Authentication required`              |
+| 401    | Not logged in     | `Authentication required`              |
 | 403    | Not a landlord    | `You don't have permission to do this` |
 | 403    | Account is banned | `Your account has been banned`         |
