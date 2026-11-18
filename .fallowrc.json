@@ -15,11 +15,11 @@
     // ]
   },
   "rules": {
-    "unused-dependencies": "off",
-    "unused-dev-dependencies": "off",
-    "unused-files": "off",
-    "unused-exports": "off",
-    "unused-type": "off"
+    // "unused-dependencies": "off",
+    // "unused-dev-dependencies": "off",
+    // "unused-files": "off",
+    // "unused-exports": "off",
+    // "unused-type": "off"
   },
   "ignorePatterns": ["prisma7.config.ts"]
 }
