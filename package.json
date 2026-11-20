@@ -25,7 +25,7 @@
     "db:seed": "tsx src/db/seed.ts",
     "fmt": "oxfmt",
     "lint": "oxlint --fix",
-    "stripe:listen": "stripe listen --events checkout.session.completed,checkout.session.expired --forward-to localhost:$PORT/api/stripe/webhook",
+    "stripe:listen": "dotenv run -f .env.local -- sh -c 'stripe listen --events checkout.session.completed,checkout.session.expired --forward-to localhost:$PORT/api/stripe/webhook'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

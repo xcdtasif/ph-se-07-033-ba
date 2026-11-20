@@ -59,8 +59,7 @@ See [User](docs/api-docs/user.md) and [Property](docs/api-docs/property.md#visib
 
 ### Prerequisites
 
-- [mise](https://mise.jdx.dev) (installs Node 24 and loads `.env.local`), or Node 24 installed
-  yourself
+- [mise](https://mise.jdx.dev) (installs Node 24), or Node 24 installed yourself
 - A PostgreSQL database, for example [Neon](https://neon.tech)
 - A Stripe account and the [Stripe CLI](https://docs.stripe.com/stripe-cli)
 - An [UploadThing](https://uploadthing.com) app
