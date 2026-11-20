@@ -14,12 +14,6 @@
     //   "**/generated/**"     // OpenAPI, Protobuf codegen
     // ]
   },
-  "rules": {
-    // "unused-dependencies": "off",
-    // "unused-dev-dependencies": "off",
-    // "unused-files": "off",
-    // "unused-exports": "off",
-    // "unused-type": "off"
-  },
+  "rules": {},
   "ignorePatterns": ["prisma7.config.ts"]
 }
