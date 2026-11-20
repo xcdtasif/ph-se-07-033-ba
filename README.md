@@ -3,7 +3,7 @@
 REST API for a rental property marketplace. Landlords list properties, tenants request them and pay
 the deposit through Stripe, and admins moderate the platform.
 
-Live API: <https://ph-se-07-026.vercel.app>
+Live API: <https://ph-se-07-033-ba.vercel.app>
 
 ## Overview
 
@@ -168,7 +168,7 @@ validation rules and responses.
 | [Upload](docs/api-docs/upload.md)     | Property image uploads through UploadThing           |
 
 The endpoints are also published as
-[Postman Docs](https://documenter.getpostman.com/view/55697110/2sBYHaPcqk). To run the requests
+[Postman Docs](https://documenter.getpostman.com/view/55697110/2sBYHaQHjE). To run the requests
 against your own server, see the [Postman Guide](docs/postman-guide.md).
 
 ### Conventions

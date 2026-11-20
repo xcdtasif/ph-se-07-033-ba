@@ -3,7 +3,7 @@
 The API is documented in Postman, with a request for every endpoint grouped by module and then by
 who may call it (`Public`, `Authenticated`, `Tenant`, `Landlord`, `Admin`):
 
-<https://documenter.getpostman.com/view/55697110/2sBYHaPcqk>
+<https://documenter.getpostman.com/view/55697110/2sBYHaQHjE>
 
 The Stripe webhook and the UploadThing route are left out. Stripe and the UploadThing client call
 them, not you. To run the requests yourself, use **Run in Postman** on that page to import the
@@ -11,16 +11,16 @@ collection, then follow this guide. For endpoint rules and responses see [API Do
 
 ## Environment
 
-**Run in Postman** imports the collection together with the **ph-se-07-026-prod** environment.
+**Run in Postman** imports the collection together with the **ph-se-07-033-ba-prod** environment.
 Select that environment before sending a request. It sets `baseUrl` to the deployed API. Every
 request starts with `{{baseUrl}}`, so the environment decides which server the request goes to.
 
 To test a local server, create your own environment (or edit the value) with these values:
 
-| Environment       | `baseUrl`                             |
-| ----------------- | ------------------------------------- |
-| ph-se-07-026-prod | `https://ph-se-07-026.vercel.app/api` |
-| Your local one    | `http://localhost:5000/api`           |
+| Environment          | `baseUrl`                                |
+| -------------------- | ---------------------------------------- |
+| ph-se-07-033-ba-prod | `https://ph-se-07-033-ba.vercel.app/api` |
+| Your local one       | `http://localhost:5000/api`              |
 
 Local assumes `PORT=5000` in `.env.local`.
 

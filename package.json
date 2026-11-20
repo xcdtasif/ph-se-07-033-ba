@@ -1,14 +1,14 @@
 {
-  "name": "ph-se-07-026",
+  "name": "ph-se-07-033-ba",
   "version": "0.1.0",
   "description": "",
-  "homepage": "https://github.com/xcdtasif/ph-se-07-026#readme",
+  "homepage": "https://github.com/xcdtasif/ph-se-07-033-ba#readme",
   "bugs": {
-    "url": "https://github.com/xcdtasif/ph-se-07-026/issues"
+    "url": "https://github.com/xcdtasif/ph-se-07-033-ba/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xcdtasif/ph-se-07-026.git"
+    "url": "git+https://github.com/xcdtasif/ph-se-07-033-ba.git"
   },
   "directories": {
     "doc": "docs"
