@@ -129,16 +129,22 @@ Returns the signed-in tenant's payments, newest first.
 
 **Query**
 
-| Param    | Type    | Default | Rules                            |
-| -------- | ------- | ------- | -------------------------------- |
-| `page`   | integer | `1`     | Minimum 1                        |
-| `limit`  | integer | `10`    | 1 to 50                          |
-| `status` | enum    |         | `PENDING`, `COMPLETED`, `FAILED` |
+| Param       | Type    | Default | Rules                            |
+| ----------- | ------- | ------- | -------------------------------- |
+| `page`      | integer | `1`     | Minimum 1                        |
+| `limit`     | integer | `10`    | 1 to 50                          |
+| `status`    | enum    |         | `PENDING`, `COMPLETED`, `FAILED` |
+| `sessionId` | string  |         | 1 to 255 characters              |
+
+`sessionId` matches the payment's `stripeSessionId` exactly. The success page uses it with the
+`session_id` from Stripe's redirect to find the payment that was just paid. Another tenant's
+session matches nothing, so the list comes back empty.
 
 **Example**
 
 ```
 GET /api/tenant/payments?page=1&limit=10&status=COMPLETED
+GET /api/tenant/payments?sessionId=cs_test_a1b2c3
 ```
 
 **Responses**

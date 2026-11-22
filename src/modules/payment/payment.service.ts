@@ -262,6 +262,7 @@ const getTenantPayments = async (tenantId: string, query: PaymentListQuery) => {
   const where: Prisma.PaymentWhereInput = {
     request: { tenantId },
     ...(query.status ? { status: query.status } : {}),
+    ...(query.sessionId ? { stripeSessionId: query.sessionId } : {}),
   }
 
   const [payments, total] = await Promise.all([
