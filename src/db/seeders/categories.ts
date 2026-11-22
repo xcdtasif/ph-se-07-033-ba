@@ -10,11 +10,11 @@ export const seedCategories = async () => {
   const missing = CATEGORY_NAMES.filter((name) => !existingNames.has(name.toLowerCase()))
 
   if (missing.length === 0) {
-    logCount(0, "category", "categories", "created")
+    logCount(0, "category", "categories", "seeded")
     return
   }
 
   await prisma.category.createMany({ data: missing.map((name) => ({ name })) })
 
-  logCount(missing.length, "category", "categories", "created")
+  logCount(missing.length, "category", "categories", "seeded")
 }

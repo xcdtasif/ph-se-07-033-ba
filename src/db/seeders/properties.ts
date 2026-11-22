@@ -314,7 +314,7 @@ export const seedProperties = async () => {
   const missing = PROPERTIES.filter((property) => !existingNames.has(property.name))
 
   if (missing.length === 0) {
-    logCount(0, "property", "properties", "created")
+    logCount(0, "property", "properties", "seeded")
     return
   }
 
@@ -339,5 +339,5 @@ export const seedProperties = async () => {
     }),
   })
 
-  logCount(missing.length, "property", "properties", "created")
+  logCount(missing.length, "property", "properties", "seeded")
 }

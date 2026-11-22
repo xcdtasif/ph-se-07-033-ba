@@ -226,9 +226,9 @@ export const seedRequests = async () => {
   })
 
   if (existing > 0) {
-    logCount(0, "request", "requests", "created")
-    logCount(0, "payment", "payments", "created")
-    logCount(0, "review", "reviews", "created")
+    logCount(0, "request", "requests", "seeded")
+    logCount(0, "payment", "payments", "seeded")
+    logCount(0, "review", "reviews", "seeded")
     return
   }
 
@@ -297,7 +297,7 @@ export const seedRequests = async () => {
     }
   })
 
-  logCount(REQUESTS.length, "request", "requests", "created")
-  logCount(paid, "payment", "payments", "created")
-  logCount(reviewed, "review", "reviews", "created")
+  logCount(REQUESTS.length, "request", "requests", "seeded")
+  logCount(paid, "payment", "payments", "seeded")
+  logCount(reviewed, "review", "reviews", "seeded")
 }

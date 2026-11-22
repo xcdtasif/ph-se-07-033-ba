@@ -17,7 +17,7 @@ export const seedAdmin = async () => {
       throw new Error(`A non-admin user with email ${email} already exists`)
     }
 
-    logCount(0, "admin", "admins", "created")
+    logCount(0, "admin", "admins", "seeded")
     return
   }
 
@@ -30,5 +30,5 @@ export const seedAdmin = async () => {
     },
   })
 
-  logCount(1, "admin", "admins", "created")
+  logCount(1, "admin", "admins", "seeded")
 }

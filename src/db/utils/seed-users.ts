@@ -21,7 +21,7 @@ export const seedUsersWithRole = async (
   const missing = users.filter((user) => !existingEmails.has(user.email))
 
   if (missing.length === 0) {
-    logCount(0, singular, plural, "created")
+    logCount(0, singular, plural, "seeded")
     return
   }
 
@@ -29,5 +29,5 @@ export const seedUsersWithRole = async (
 
   await prisma.user.createMany({ data: missing.map((user) => ({ ...user, password, role })) })
 
-  logCount(missing.length, singular, plural, "created")
+  logCount(missing.length, singular, plural, "seeded")
 }
