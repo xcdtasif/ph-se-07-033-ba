@@ -75,7 +75,7 @@ const createPayment = async (
         const activePayment = await tx.payment.findFirst({
           where: activeCheckoutWhere(request.id),
           include: paymentInclude,
-          orderBy: { createdAt: "desc" },
+          orderBy: [{ createdAt: "desc" }, { id: "desc" }],
         })
 
         if (activePayment) {
@@ -268,7 +268,7 @@ const getTenantPayments = async (tenantId: string, query: PaymentListQuery) => {
     prisma.payment.findMany({
       where,
       include: paymentInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip: (query.page - 1) * query.limit,
       take: query.limit,
     }),

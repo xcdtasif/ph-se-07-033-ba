@@ -29,7 +29,7 @@ const getAllUsers = async (query: UserListQuery) => {
     prisma.user.findMany({
       where,
       omit: { password: true },
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),

@@ -113,7 +113,7 @@ const getTenantRequests = async (tenantId: string, query: RequestListQuery) => {
     prisma.request.findMany({
       where,
       include: tenantRequestInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       ...paginate(query),
     }),
     prisma.request.count({ where }),
@@ -149,7 +149,7 @@ const getLandlordRequests = async (landlordId: string, query: RequestListQuery) 
     prisma.request.findMany({
       where,
       include: landlordRequestInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       ...paginate(query),
     }),
     prisma.request.count({ where }),
@@ -283,7 +283,7 @@ const getAdminRequests = async (query: AdminRequestListQuery) => {
     prisma.request.findMany({
       where,
       include: adminRequestInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       ...paginate(query),
     }),
     prisma.request.count({ where }),

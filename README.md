@@ -212,7 +212,8 @@ Every response, success or error, has this shape:
 
 List endpoints take `page` (default `1`) and `limit` (default `10`, at most `50`) and return
 `meta` with `page`, `limit` and `total`. Lists are newest first unless the endpoint offers a
-`sort`.
+`sort`. Rows that tie on the sort (the same date or rent) are ordered by `id`, so paging never
+shows a row twice or skips one.
 
 #### Errors
 

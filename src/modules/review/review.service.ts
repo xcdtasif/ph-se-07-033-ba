@@ -48,7 +48,7 @@ const getPropertyReviews = async (propertyId: string, { page, limit }: ReviewLis
       where,
       include: publicReviewInclude,
       omit: { tenantId: true, requestId: true, isHidden: true },
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),
@@ -128,7 +128,7 @@ const getTenantReviews = async (tenantId: string, { page, limit }: ReviewListQue
     prisma.review.findMany({
       where,
       include: reviewInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),
@@ -173,7 +173,7 @@ const getLandlordReviews = async (
     prisma.review.findMany({
       where,
       include: landlordReviewInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),
@@ -200,7 +200,7 @@ const getAdminReviews = async ({
     prisma.review.findMany({
       where,
       include: adminReviewInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),

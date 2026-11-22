@@ -66,7 +66,8 @@ const getAllProperties = async (query: PropertyListQuery) => {
     prisma.property.findMany({
       where,
       include: propertyInclude,
-      orderBy: orderByMap[sort],
+      // id breaks ties, so rows with the same rent or date keep their place across pages
+      orderBy: [orderByMap[sort], { id: "desc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),
@@ -188,7 +189,7 @@ const getLandlordProperties = async (landlordId: string, query: LandlordProperty
     prisma.property.findMany({
       where,
       include: propertyInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),
@@ -217,7 +218,7 @@ const getAdminProperties = async (query: AdminPropertyListQuery) => {
     prisma.property.findMany({
       where,
       include: adminPropertyInclude,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),
