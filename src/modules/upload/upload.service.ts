@@ -1,16 +1,16 @@
 import { prisma } from "../../lib/prisma.js"
 import { UPLOAD_URL_PREFIX, utapi } from "../../lib/uploadthing.js"
-import { PLACEHOLDER_IMAGE_URL } from "./upload.constants.js"
+import { PLACEHOLDER_IMAGE_URLS } from "./upload.constants.js"
 
 /*
-Deletes the given image files from UploadThing, skipping the shared placeholder image, files
+Deletes the given image files from UploadThing, skipping the shared placeholder images, files
 that aren't ours and files another property still uses, since a landlord can attach any
 public UploadThing URL. Runs after the database write and is best effort, so a failure here
 leaves an orphaned file instead of failing the request.
 */
 const deleteUnusedImages = async (urls: string[]) => {
   const candidates = urls.filter(
-    (url) => url.startsWith(UPLOAD_URL_PREFIX) && url !== PLACEHOLDER_IMAGE_URL,
+    (url) => url.startsWith(UPLOAD_URL_PREFIX) && !PLACEHOLDER_IMAGE_URLS.includes(url),
   )
 
   if (candidates.length === 0) return

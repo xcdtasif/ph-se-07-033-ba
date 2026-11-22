@@ -40,7 +40,7 @@ UploadThing's signature instead. Clients never call it.
   (`https://<appId>.ufs.sh/f/`). Any other URL is rejected with `Validation of body failed`.
 - Files are deleted from UploadThing when a property is deleted, or when an update replaces them
   with a list that no longer contains them. A file that another property still uses is kept, and so
-  is the shared placeholder image used by seeded properties.
+  are the two shared placeholder images used by seeded properties.
 - Deleting files is best effort and runs after the database change. If UploadThing is
   unreachable, the request still succeeds and the file stays orphaned.
 
