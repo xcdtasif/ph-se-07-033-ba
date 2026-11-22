@@ -184,7 +184,7 @@ Creates a property owned by the signed-in landlord. New properties start as `AVA
 | `name`        | string   | Trimmed, 2 to 100 characters             |
 | `description` | string   | Trimmed, 10 to 2000 characters           |
 | `location`    | string   | Trimmed, 2 to 200 characters             |
-| `images`      | string[] | 1 to 2 UploadThing URLs                  |
+| `images`      | string[] | 1 to 2 different UploadThing URLs        |
 | `rent`        | number   | Greater than 0, at most 2 decimal places |
 | `deposit`     | number   | Greater than 0, at most 2 decimal places |
 
@@ -240,7 +240,7 @@ Partial update. Send at least one field.
 | `name`        | string   | Trimmed, 2 to 100 characters                                                                       |
 | `description` | string   | Trimmed, 10 to 2000 characters                                                                     |
 | `location`    | string   | Trimmed, 2 to 200 characters                                                                       |
-| `images`      | string[] | 1 to 2 UploadThing URLs. Replaces the existing list                                                |
+| `images`      | string[] | 1 to 2 different UploadThing URLs. Replaces the existing list                                      |
 | `rent`        | number   | Greater than 0, at most 2 decimal places                                                           |
 | `deposit`     | number   | Greater than 0, at most 2 decimal places                                                           |
 | `status`      | enum     | `AVAILABLE` or `UNAVAILABLE`. `RESERVED` and `RENTED` are set by the request and payment flow only |

@@ -15,6 +15,15 @@ const moneySchema = z
 // Only files uploaded to our own UploadThing app are accepted as property images
 const imageUrlSchema = z.url().startsWith(UPLOAD_URL_PREFIX)
 
+// The gallery tells photos apart by URL, so the same file can't be listed twice
+const imagesSchema = z
+  .array(imageUrlSchema)
+  .min(1)
+  .max(2)
+  .refine((images) => new Set(images).size === images.length, {
+    error: "Images must be different",
+  })
+
 export const propertyIdParamsSchema = z.strictObject({
   id: z.uuid(),
 })
@@ -26,7 +35,7 @@ export const createPropertySchema = z.strictObject({
   name: z.string().trim().min(2).max(100),
   description: z.string().trim().min(10).max(2000),
   location: z.string().trim().min(2).max(200),
-  images: z.array(imageUrlSchema).min(1).max(2),
+  images: imagesSchema,
   rent: moneySchema.positive(),
   deposit: moneySchema.positive(),
 })
