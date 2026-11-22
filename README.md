@@ -119,20 +119,20 @@ and `ADMIN_NAME` is optional.
 ### Seed Data
 
 `npm run db:seed` is safe to repeat. It always creates the admin from the `ADMIN_*` variables and
-four categories (Apartment, House, Studio, Commercial). Outside production it also creates sample
+the categories (Apartment, House, Studio, Commercial). Outside production it also creates sample
 data that covers each feature:
 
-| Data       | What it contains                                                                                            |
-| ---------- | ----------------------------------------------------------------------------------------------------------- |
-| Landlords  | `landlord01@gmail.com` to `landlord03@gmail.com`, and a banned `landlord04@gmail.com`                       |
-| Tenants    | `tenant01@gmail.com` to `tenant03@gmail.com`, and a banned `tenant04@gmail.com`                             |
-| Properties | Ten: nine across the active landlords, one of them hidden by an admin, and one owned by the banned landlord |
-| Requests   | One `PENDING`, `CANCELLED`, `APPROVED` and `REJECTED`, and three `COMPLETED`                                |
-| Payments   | A `COMPLETED` payment for each completed rental. They have no real Stripe session behind them               |
-| Reviews    | Three, one of them hidden                                                                                   |
+| Data       | What it contains                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------------ |
+| Landlords  | Active landlords from `landlord01@gmail.com` up, and a banned `landlord04@gmail.com`             |
+| Tenants    | Active tenants from `tenant01@gmail.com` up, and a banned `tenant04@gmail.com`                   |
+| Properties | Spread across the active landlords, one hidden by an admin, and one owned by the banned landlord |
+| Requests   | Every status, enough for `tenant01`'s list to span more than one page                            |
+| Payments   | A `COMPLETED` payment for each active or completed rental, with no real Stripe session behind it |
+| Reviews    | One per completed rental, one of them hidden, enough to page through a property's reviews        |
 
-All sample users share the password `1a2s3d4f`. `tenant01` has an `APPROVED` request on "Cozy Duplex
-in Bashundhara", so the payment flow can be tried right away. The sample data is skipped when
+All sample users share the password `1a2s3d4f`. `tenant01` has `APPROVED` requests, so the payment
+flow can be tried right away, more than once. The sample data is skipped when
 `NODE_ENV` is `production`.
 
 ### Scripts

@@ -119,12 +119,33 @@ const REQUESTS: SeedRequest[] = [
     message: "I'm looking for a two-bedroom flat for my small family. Could we visit this week?",
     review: { rating: 3, comment: "Decent place, the deposit came back a little late." },
   },
-  // Approved, so the property is RESERVED and the tenant can start the payment flow
+  /*
+  Approved, so the property is RESERVED and the tenant can start the payment flow. Several for
+  Tenant 01, so payment can be tried more than once without seeding again.
+  */
   {
     tenant: "tenant01@gmail.com",
     property: "Cozy Duplex in Bashundhara",
     status: "APPROVED",
     message: "I would like to move in with my family next month. We have no pets and don't smoke.",
+  },
+  {
+    tenant: "tenant01@gmail.com",
+    property: "Semi-Detached House in Khilgaon",
+    status: "APPROVED",
+    message: "We're a family of four looking for a two-year lease. Is there space to park a car?",
+  },
+  {
+    tenant: "tenant01@gmail.com",
+    property: "Duplex Apartment in Niketan",
+    status: "APPROVED",
+    message: "I'd like to rent this duplex from the 1st. My office is a short walk from Niketan.",
+  },
+  {
+    tenant: "tenant01@gmail.com",
+    property: "Furnished Studio in Mirpur DOHS",
+    status: "APPROVED",
+    message: "I'm moving to Dhaka alone for work and a furnished studio would suit me well.",
   },
   {
     tenant: "tenant03@gmail.com",
@@ -144,7 +165,7 @@ const REQUESTS: SeedRequest[] = [
     status: "REJECTED",
     message: "I would like to rent this studio from next month.",
   },
-  // More for Tenant 01, so their requests span two pages, with every status
+  // More for Tenant 01, so their requests span three pages, with every status
   {
     tenant: "tenant01@gmail.com",
     property: "Lake-View 3-Bed Apartment in Baridhara",
