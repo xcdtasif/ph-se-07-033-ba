@@ -33,7 +33,7 @@ export type UpdateTenantRequestStatusPayload = z.output<typeof updateTenantReque
 
 // ACTIVE is set by the payment webhook only
 export const updateLandlordRequestStatusSchema = z.strictObject({
-  status: z.enum(["APPROVED", "REJECTED", "COMPLETED"]),
+  status: z.enum(["APPROVED", "COMPLETED", "REJECTED"]),
 })
 
 export type UpdateLandlordRequestStatusPayload = z.output<typeof updateLandlordRequestStatusSchema>

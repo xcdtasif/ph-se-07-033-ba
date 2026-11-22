@@ -133,7 +133,7 @@ Returns the signed-in tenant's requests, newest first.
 | -------- | ------- | ------- | --------------------------------------------------------------------- |
 | `page`   | integer | `1`     | Minimum 1                                                             |
 | `limit`  | integer | `10`    | 1 to 50                                                               |
-| `status` | enum    |         | `PENDING`, `CANCELLED`, `APPROVED`, `REJECTED`, `ACTIVE`, `COMPLETED` |
+| `status` | enum    |         | `PENDING`, `APPROVED`, `ACTIVE`, `COMPLETED`, `REJECTED`, `CANCELLED` |
 
 **Example**
 
@@ -280,7 +280,7 @@ Returns a paginated list of all requests, newest first. Each request includes th
 | ------------ | ------- | ------- | --------------------------------------------------------------------- |
 | `page`       | integer | `1`     | Minimum 1                                                             |
 | `limit`      | integer | `10`    | 1 to 50                                                               |
-| `status`     | enum    |         | `PENDING`, `CANCELLED`, `APPROVED`, `REJECTED`, `ACTIVE`, `COMPLETED` |
+| `status`     | enum    |         | `PENDING`, `APPROVED`, `ACTIVE`, `COMPLETED`, `REJECTED`, `CANCELLED` |
 | `tenantId`   | UUID    |         | Filter by tenant                                                      |
 | `propertyId` | UUID    |         | Filter by property                                                    |
 
