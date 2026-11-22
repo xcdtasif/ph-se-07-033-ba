@@ -71,6 +71,17 @@ export const handlePrismaError = (err: unknown): MappedError | null => {
     return { statusCode: httpStatus.SERVICE_UNAVAILABLE, message: "Database unavailable" }
   }
 
+  /*
+  The WebSocket to Neon failed mid-query (dropped, closed while idle, or the database
+  waking up). The Neon adapter rethrows the socket's error event as is, not as a Prisma error
+  */
+  if (err instanceof Event) {
+    return {
+      statusCode: httpStatus.SERVICE_UNAVAILABLE,
+      message: "Database unavailable, try again",
+    }
+  }
+
   if (
     err instanceof Prisma.PrismaClientValidationError ||
     err instanceof Prisma.PrismaClientUnknownRequestError ||

@@ -6,6 +6,16 @@ import { handlePrismaError } from "../utils/handle-prisma-error.js"
 import { handleStripeError } from "../utils/handle-stripe-error.js"
 import { sendResponse } from "../utils/send-response.js"
 
+/*
+An error event (e.g. the database WebSocket's) keeps its cause in `error` and `message`,
+which console.error doesn't print, so name them
+*/
+const describeEvent = (event: Event) => {
+  const { error, message } = event as Event & { error?: unknown; message?: string }
+
+  return { event: event.type, message, error }
+}
+
 export const errorHandler: ErrorRequestHandler = (err, _req, res, next) => {
   if (res.headersSent) {
     next(err)
@@ -35,7 +45,7 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, next) => {
   }
 
   if (statusCode >= httpStatus.INTERNAL_SERVER_ERROR) {
-    console.error(err)
+    console.error(err instanceof Event ? describeEvent(err) : err)
   }
 
   sendResponse(res, { success: false, statusCode, message, errorDetails })
