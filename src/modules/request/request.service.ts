@@ -26,7 +26,17 @@ const propertySelect = {
 
 const tenantRequestInclude = {
   property: { select: propertySelect },
+  review: { select: { id: true } },
 } satisfies Prisma.RequestInclude
+
+// Tenant responses say whether the rental has been reviewed instead of including the review
+const toTenantRequest = <T extends { review: { id: string } | null }>({
+  review,
+  ...request
+}: T) => ({
+  ...request,
+  isReviewed: review !== null,
+})
 
 const landlordRequestInclude = {
   tenant: { select: { id: true, name: true, email: true } },
@@ -97,10 +107,12 @@ const createRequest = async (tenantId: string, payload: CreateRequestPayload) =>
     throw new AppError(httpStatus.CONFLICT, "You already have an open request for this property")
   }
 
-  return prisma.request.create({
+  const request = await prisma.request.create({
     data: { ...payload, tenantId },
     include: tenantRequestInclude,
   })
+
+  return toTenantRequest(request)
 }
 
 const getTenantRequests = async (tenantId: string, query: RequestListQuery) => {
@@ -119,7 +131,10 @@ const getTenantRequests = async (tenantId: string, query: RequestListQuery) => {
     prisma.request.count({ where }),
   ])
 
-  return { requests, meta: { page: query.page, limit: query.limit, total } }
+  return {
+    requests: requests.map(toTenantRequest),
+    meta: { page: query.page, limit: query.limit, total },
+  }
 }
 
 const getTenantRequestById = async (id: string, tenantId: string) => {
@@ -136,7 +151,7 @@ const getTenantRequestById = async (id: string, tenantId: string) => {
     throw new AppError(httpStatus.FORBIDDEN, "This request isn't yours")
   }
 
-  return request
+  return toTenantRequest(request)
 }
 
 const getLandlordRequests = async (landlordId: string, query: RequestListQuery) => {
@@ -234,13 +249,15 @@ const updateTenantRequestStatus = async (
     throw new AppError(httpStatus.FORBIDDEN, "This request isn't yours")
   }
 
-  return transitionRequest(
+  const updated = await transitionRequest(
     request,
     status,
     tenantTransitions,
     "You're paying the deposit, try again after the checkout ends",
     (tx) => tx.request.findUniqueOrThrow({ where: { id }, include: tenantRequestInclude }),
   )
+
+  return toTenantRequest(updated)
 }
 
 const updateLandlordRequestStatus = async (

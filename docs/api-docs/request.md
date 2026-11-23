@@ -41,6 +41,9 @@
 Landlord responses also include `tenant`: `{ "id", "name", "email" }`, placed before `property`, to
 match the order of `tenantId` and `propertyId`.
 
+Tenant responses also include `isReviewed`, after `property`: `true` once the tenant has
+[reviewed](review.md#create-review) the request, otherwise `false`.
+
 ### Status Flow
 
 Request status and property status move together:
