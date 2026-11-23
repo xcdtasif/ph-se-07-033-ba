@@ -44,7 +44,8 @@ the amount of the request's completed [payment](payment.md) as a decimal string,
 none has been paid. It keeps the amount paid even if the property's `deposit` changes later.
 
 Tenant responses also include `isReviewed`, after `property`: `true` once the tenant has
-[reviewed](review.md#create-review) the request, otherwise `false`.
+[reviewed](review.md#create-review) the request, otherwise `false`. Their `property` adds
+`reviewCount` and `averageRating`, as in [Get All Properties](property.md#get-all-properties).
 
 ### Status Flow
 

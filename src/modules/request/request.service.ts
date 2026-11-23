@@ -5,6 +5,7 @@ import { prisma } from "../../lib/prisma.js"
 import { AppError } from "../../utils/app-error.js"
 import { activeCheckoutWhere } from "../payment/payment.checkout.js"
 import { visiblePropertyWhere } from "../property/property.filters.js"
+import { reviewService } from "../review/review.service.js"
 import type {
   AdminRequestListQuery,
   CreateRequestPayload,
@@ -29,14 +30,29 @@ const tenantRequestInclude = {
   review: { select: { id: true } },
 } satisfies Prisma.RequestInclude
 
-// Tenant responses say whether the rental has been reviewed instead of including the review
-const toTenantRequest = <T extends { review: { id: string } | null }>({
-  review,
-  ...request
-}: T) => ({
-  ...request,
-  isReviewed: review !== null,
-})
+type TenantRequestRow = {
+  review: { id: string } | null
+  property: { id: string }
+}
+
+/*
+Tenant responses add the property's rating summary, and say whether the rental has been reviewed
+instead of including the review
+*/
+const toTenantRequests = async <T extends TenantRequestRow>(requests: T[]) => {
+  const summaryFor = await reviewService.getRatingSummaries(
+    requests.map(({ property }) => property.id),
+  )
+
+  return requests.map(({ review, property, ...request }) => ({
+    ...request,
+    property: { ...property, ...summaryFor(property.id) },
+    isReviewed: review !== null,
+  }))
+}
+
+const toTenantRequest = async <T extends TenantRequestRow>(request: T) =>
+  (await toTenantRequests([request]))[0]!
 
 const landlordRequestInclude = {
   tenant: { select: { id: true, name: true, email: true } },
@@ -143,7 +159,7 @@ const getTenantRequests = async (tenantId: string, query: RequestListQuery) => {
   ])
 
   return {
-    requests: requests.map(toTenantRequest),
+    requests: await toTenantRequests(requests),
     meta: { page: query.page, limit: query.limit, total },
   }
 }
