@@ -12,9 +12,10 @@ type SeedRequest = {
 }
 
 /*
-One request per status the flow can show, plus completed rentals with reviews. Tenant 01 to 03 make
-the requests; Tenant 05 to 14 are earlier tenants of one flat. The properties are the ones in
-properties.ts. Requests are a day apart, first in the list oldest, so lists sorted by date have no ties.
+One request per status the flow can show, plus completed rentals with and without reviews.
+Tenant 01 to 03 make the requests; Tenant 05 to 14 are earlier tenants of one flat. The properties
+are the ones in properties.ts. Requests are a day apart, first in the list oldest, so lists sorted
+by date have no ties.
 */
 const DAY = 24 * 60 * 60 * 1000
 
@@ -229,6 +230,26 @@ const REQUESTS: SeedRequest[] = [
       rating: 4,
       comment: "Great view and the lift always worked. A bit far from the shops.",
     },
+  },
+  // Completed but not reviewed, so Tenant 01 can try reviewing more than once without seeding again
+  {
+    tenant: "tenant01@gmail.com",
+    property: "Old Dhaka Heritage House",
+    status: "COMPLETED",
+    message: "I'd love to live in a heritage house. Could I rent it for a year from the 1st?",
+  },
+  {
+    tenant: "tenant01@gmail.com",
+    property: "Family House in Wari",
+    status: "COMPLETED",
+    message:
+      "We're a family of three looking for a house on a quiet lane. Is the roof garden shared?",
+  },
+  {
+    tenant: "tenant01@gmail.com",
+    property: "Student Studio near Dhaka University",
+    status: "COMPLETED",
+    message: "I'm starting a master's at Dhaka University and need a studio for the academic year.",
   },
 ]
 
