@@ -21,14 +21,15 @@ const DAY = 24 * 60 * 60 * 1000
 
 const REQUESTS: SeedRequest[] = [
   {
-    tenant: "tenant01@gmail.com",
+    tenant: "tenant02@gmail.com",
     property: "Sunny 2-Bed Apartment in Dhanmondi",
     status: "COMPLETED",
     message: "Hi, I'd like to rent this flat for a year. I work nearby and can move in on the 1st.",
     review: { rating: 5, comment: "Quiet building and a very responsive landlord." },
   },
+  // Tenant 01's, so their own reviews show a hidden one
   {
-    tenant: "tenant02@gmail.com",
+    tenant: "tenant01@gmail.com",
     property: "Sunny 2-Bed Apartment in Dhanmondi",
     status: "COMPLETED",
     message:
