@@ -126,7 +126,13 @@ const createPayment = async (
         }
 
         const payment = await tx.payment.create({
-          data: { requestId: request.id, stripeSessionId: session.id, amount: deposit },
+          data: {
+            requestId: request.id,
+            stripeSessionId: session.id,
+            amount: deposit,
+            currency: CURRENCY,
+            type: "DEPOSIT",
+          },
           include: paymentInclude,
         })
 

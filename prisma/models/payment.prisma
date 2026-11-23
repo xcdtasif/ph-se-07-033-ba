@@ -3,6 +3,9 @@ model Payment {
   requestId       String        @map("request_id")
   stripeSessionId String        @map("stripe_session_id")
   amount          Decimal       @db.Decimal(12, 2)
+  // Lowercase ISO code, as Stripe takes it
+  currency        String        @default("bdt")
+  type            PaymentType   @default(DEPOSIT)
   status          PaymentStatus @default(PENDING)
   createdAt       DateTime      @default(now()) @map("created_at")
   updatedAt       DateTime      @updatedAt @map("updated_at")
@@ -12,6 +15,11 @@ model Payment {
   @@unique([stripeSessionId])
   @@index([requestId])
   @@map("payments")
+}
+
+// What the payment is for; a property's deposit is the only payment so far
+enum PaymentType {
+  DEPOSIT
 }
 
 enum PaymentStatus {

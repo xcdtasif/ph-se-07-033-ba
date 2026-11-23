@@ -23,6 +23,8 @@ The Stripe webhook is called by Stripe, not by clients. See [Stripe Webhook](#st
   "requestId": "3b2a1c0d-0000-4000-8000-000000000000",
   "stripeSessionId": "cs_test_a1b2c3",
   "amount": "56000",
+  "currency": "bdt",
+  "type": "DEPOSIT",
   "status": "PENDING",
   "createdAt": "2026-11-06T10:00:00.000Z",
   "updatedAt": "2026-11-06T10:00:00.000Z",
@@ -39,7 +41,9 @@ The Stripe webhook is called by Stripe, not by clients. See [Stripe Webhook](#st
 }
 ```
 
-`amount` is a decimal with 2 decimal places and is serialized as a string.
+`amount` is a decimal with 2 decimal places and is serialized as a string. `currency` is the
+lowercase ISO code Stripe charged in (always `bdt` for now). `type` says what the payment is for:
+`DEPOSIT`, the property's deposit, is the only type so far.
 
 ### Payment Flow
 
