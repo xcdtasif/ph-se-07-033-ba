@@ -9,6 +9,7 @@
 | [Get All Properties](#get-all-properties)                 | `GET /api/properties?…`                  | Public   |
 | [Get Property By ID](#get-property-by-id)                 | `GET /api/properties/:id`                | Public   |
 | [Get Own Properties](#get-own-properties)                 | `GET /api/landlord/properties?…`         | Landlord |
+| [Get Own Property By ID](#get-own-property-by-id)         | `GET /api/landlord/properties/:id`       | Landlord |
 | [Create Property](#create-property)                       | `POST /api/landlord/properties {…}`      | Landlord |
 | [Update Property](#update-property)                       | `PATCH /api/landlord/properties/:id {…}` | Landlord |
 | [Delete Property](#delete-property)                       | `DELETE /api/landlord/properties/:id`    | Landlord |
@@ -167,6 +168,32 @@ GET /api/landlord/properties?page=1&limit=10&status=AVAILABLE
 | 403    | Not a landlord    | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
+
+---
+
+## Get Own Property By ID
+
+`GET /api/landlord/properties/:id` · Landlord (owner)
+
+Returns one of the signed-in landlord's properties in any status, including one an admin has
+[hidden](#visibility), with `isHidden`, `reviewCount` and `averageRating`.
+
+**Params**
+
+| Param | Type | Rules      |
+| ----- | ---- | ---------- |
+| `id`  | UUID | Valid UUID |
+
+**Responses**
+
+| Status | When                                 | Message                                |
+| ------ | ------------------------------------ | -------------------------------------- |
+| 200    | Success                              | `Property fetched successfully`        |
+| 400    | Validation failed                    | `Validation of params failed`          |
+| 401    | Not logged in                        | `Authentication required`              |
+| 403    | Not a landlord                       | `You don't have permission to do this` |
+| 403    | Property belongs to another landlord | `You don't own this property`          |
+| 404    | Property not found                   | `Property not found`                   |
 
 ---
 

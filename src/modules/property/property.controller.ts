@@ -97,6 +97,17 @@ const getLandlordProperties = async (req: Request, res: Response) => {
   })
 }
 
+const getLandlordPropertyById = async (req: Request<PropertyIdParams>, res: Response) => {
+  const property = await propertyService.getLandlordPropertyById(req.params.id, getLandlordId(req))
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Property fetched successfully",
+    data: property,
+  })
+}
+
 const getAdminProperties = async (req: Request, res: Response) => {
   const { properties, meta } = await propertyService.getAdminProperties(
     req.query as unknown as AdminPropertyListQuery,
@@ -132,6 +143,7 @@ export const propertyController = {
   updateProperty,
   deleteProperty,
   getLandlordProperties,
+  getLandlordPropertyById,
   getAdminProperties,
   updatePropertyVisibility,
 }

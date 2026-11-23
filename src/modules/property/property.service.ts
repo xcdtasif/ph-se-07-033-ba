@@ -97,6 +97,19 @@ const getPropertyById = async (id: string) => {
   return { ...property, ...summaryFor(id) }
 }
 
+// Any of the landlord's own properties, in any status and even if hidden
+const getLandlordPropertyById = async (id: string, landlordId: string) => {
+  await getOwnedProperty(id, landlordId)
+
+  const property = await prisma.property.findUniqueOrThrow({
+    where: { id },
+    include: propertyInclude,
+  })
+  const summaryFor = await reviewService.getRatingSummaries([id])
+
+  return { ...property, ...summaryFor(id) }
+}
+
 const createProperty = async (landlordId: string, payload: CreatePropertyPayload) => {
   await categoryService.assertCategoryExists(payload.categoryId)
 
@@ -245,6 +258,7 @@ export const propertyService = {
   updateProperty,
   deleteProperty,
   getLandlordProperties,
+  getLandlordPropertyById,
   getAdminProperties,
   updatePropertyVisibility,
 }

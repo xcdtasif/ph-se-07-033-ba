@@ -22,6 +22,13 @@ router.get(
   propertyController.getLandlordProperties,
 )
 
+// Get Own Property By ID
+router.get(
+  "/:id",
+  validate(propertyIdParamsSchema, "params"),
+  propertyController.getLandlordPropertyById,
+)
+
 // Create Property
 router.post("/", validate(createPropertySchema, "body"), propertyController.createProperty)
 
