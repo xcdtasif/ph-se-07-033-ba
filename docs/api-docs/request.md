@@ -39,7 +39,9 @@
 ```
 
 Landlord responses also include `tenant`: `{ "id", "name", "email" }`, placed before `property`, to
-match the order of `tenantId` and `propertyId`.
+match the order of `tenantId` and `propertyId`. They also include `paidDeposit`, after `property`:
+the amount of the request's completed [payment](payment.md) as a decimal string, or `null` while
+none has been paid. It keeps the amount paid even if the property's `deposit` changes later.
 
 Tenant responses also include `isReviewed`, after `property`: `true` once the tenant has
 [reviewed](review.md#create-review) the request, otherwise `false`.

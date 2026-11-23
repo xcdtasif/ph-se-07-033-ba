@@ -41,7 +41,18 @@ const toTenantRequest = <T extends { review: { id: string } | null }>({
 const landlordRequestInclude = {
   tenant: { select: { id: true, name: true, email: true } },
   property: { select: propertySelect },
+  // The webhook completes at most one payment per request
+  payments: { where: { status: "COMPLETED" }, select: { amount: true }, take: 1 },
 } satisfies Prisma.RequestInclude
+
+// Landlord responses carry the deposit the tenant paid, which stays put if the property's changes
+const toLandlordRequest = <T extends { payments: { amount: Prisma.Decimal }[] }>({
+  payments,
+  ...request
+}: T) => ({
+  ...request,
+  paidDeposit: payments[0]?.amount ?? null,
+})
 
 const adminRequestInclude = {
   tenant: { select: { id: true, name: true, email: true } },
@@ -170,7 +181,10 @@ const getLandlordRequests = async (landlordId: string, query: RequestListQuery) 
     prisma.request.count({ where }),
   ])
 
-  return { requests, meta: { page: query.page, limit: query.limit, total } }
+  return {
+    requests: requests.map(toLandlordRequest),
+    meta: { page: query.page, limit: query.limit, total },
+  }
 }
 
 const transitionRequest = <T>(
@@ -278,13 +292,15 @@ const updateLandlordRequestStatus = async (
     throw new AppError(httpStatus.FORBIDDEN, "This request isn't for your property")
   }
 
-  return transitionRequest(
+  const updated = await transitionRequest(
     request,
     status,
     landlordTransitions,
     "The tenant is paying the deposit, try again after the checkout ends",
     (tx) => tx.request.findUniqueOrThrow({ where: { id }, include: landlordRequestInclude }),
   )
+
+  return toLandlordRequest(updated)
 }
 
 const getAdminRequests = async (query: AdminRequestListQuery) => {
