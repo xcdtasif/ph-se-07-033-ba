@@ -13,6 +13,7 @@ type SeedRequest = {
 
 /*
 One request per status the flow can show, plus completed rentals with and without reviews.
+Tenant 01 and Landlord 01 get every status, several of the ones they can act on.
 Tenant 01 to 03 make the requests; Tenant 05 to 14 are earlier tenants of one flat. The properties
 are the ones in properties.ts. Requests are a day apart, first in the list oldest, so lists sorted
 by date have no ties.
@@ -251,6 +252,43 @@ const REQUESTS: SeedRequest[] = [
     property: "Student Studio near Dhaka University",
     status: "COMPLETED",
     message: "I'm starting a master's at Dhaka University and need a studio for the academic year.",
+  },
+  // For Landlord 01's properties, so they can complete, approve and reject without seeding again
+  {
+    tenant: "tenant02@gmail.com",
+    property: "Lakeside 2-Bed Flat in Gulshan 2",
+    status: "ACTIVE",
+    message: "I'd like a one-year lease from the 1st. I work in Gulshan and walk to the office.",
+  },
+  {
+    tenant: "tenant03@gmail.com",
+    property: "Quiet 1-Bed Flat in Banani DOHS",
+    status: "ACTIVE",
+    message: "I'm a nurse at a nearby hospital and need a quiet flat for at least a year.",
+  },
+  {
+    tenant: "tenant03@gmail.com",
+    property: "Two-Bed Flat in Kalabagan",
+    status: "APPROVED",
+    message: "We're a couple looking for a two-bedroom flat near Kalabagan for a year.",
+  },
+  {
+    tenant: "tenant02@gmail.com",
+    property: "Garden Duplex in Purbachal",
+    status: "PENDING",
+    message: "Our family of four would love a house with a garden. Could we visit on Friday?",
+  },
+  {
+    tenant: "tenant03@gmail.com",
+    property: "Garden Duplex in Purbachal",
+    status: "PENDING",
+    message: "I'd like to rent this duplex for two years. Is the rooftop open to tenants?",
+  },
+  {
+    tenant: "tenant02@gmail.com",
+    property: "Corner Flat in Rampura",
+    status: "PENDING",
+    message: "Hi, I'm looking for a two-bedroom flat close to Rampura Bridge from next month.",
   },
 ]
 

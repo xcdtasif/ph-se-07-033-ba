@@ -1,3 +1,4 @@
+import type { PropertyStatus } from "../../generated/prisma/enums.js"
 import { prisma } from "../../lib/prisma.js"
 import { PLACEHOLDER_IMAGE_URLS } from "../../modules/upload/upload.constants.js"
 import { logCount } from "../utils/log-count.js"
@@ -10,10 +11,14 @@ type SeedProperty = {
   location: string
   rent: number
   deposit: number
+  // Set by the landlord; requests.ts reserves and rents properties through their requests
+  status?: Extract<PropertyStatus, "UNAVAILABLE">
   // Hidden by an admin
   isHidden?: boolean
   // Owned by the banned landlord instead of one of the active ones
   bannedLandlord?: boolean
+  // Owned by this landlord instead of the next one in turn
+  landlord?: string
 }
 
 const DAY = 24 * 60 * 60 * 1000
@@ -268,6 +273,77 @@ const PROPERTIES: SeedProperty[] = [
     deposit: 60000,
     bannedLandlord: true,
   },
+  /*
+  Landlord 01's, so their dashboard has every status to try: rentals to complete, requests to
+  approve or reject (two on one property, so approving one leaves the other unapprovable), an
+  approval to reject, an unavailable listing and a hidden one
+  */
+  {
+    category: "Apartment",
+    name: "Lakeside 2-Bed Flat in Gulshan 2",
+    description: "Two-bedroom flat facing Gulshan Lake, with a lift, a guard and covered parking.",
+    location: "Gulshan 2, Dhaka",
+    rent: 47000,
+    deposit: 94000,
+    landlord: "landlord01@gmail.com",
+  },
+  {
+    category: "Apartment",
+    name: "Quiet 1-Bed Flat in Banani DOHS",
+    description: "One-bedroom flat on a tree-lined lane, close to the shops and the bus stop.",
+    location: "Banani DOHS, Dhaka",
+    rent: 25000,
+    deposit: 50000,
+    landlord: "landlord01@gmail.com",
+  },
+  {
+    category: "House",
+    name: "Garden Duplex in Purbachal",
+    description: "Three-bedroom duplex with a front garden, a rooftop and space for two cars.",
+    location: "Purbachal, Dhaka",
+    rent: 44000,
+    deposit: 88000,
+    landlord: "landlord01@gmail.com",
+  },
+  {
+    category: "Apartment",
+    name: "Corner Flat in Rampura",
+    description: "Two-bedroom corner flat with windows on two sides and a small balcony.",
+    location: "Rampura, Dhaka",
+    rent: 22000,
+    deposit: 44000,
+    landlord: "landlord01@gmail.com",
+  },
+  {
+    category: "Apartment",
+    name: "Two-Bed Flat in Kalabagan",
+    description: "Two-bedroom flat near the playground, with gas, a lift and a rooftop to share.",
+    location: "Kalabagan, Dhaka",
+    rent: 33000,
+    deposit: 66000,
+    landlord: "landlord01@gmail.com",
+  },
+  {
+    category: "Commercial",
+    name: "Retail Unit on Elephant Road",
+    description:
+      "Ground-floor shop with a glass front on a busy shopping street, ready to fit out.",
+    location: "Elephant Road, Dhaka",
+    rent: 19500,
+    deposit: 39000,
+    status: "UNAVAILABLE",
+    landlord: "landlord01@gmail.com",
+  },
+  {
+    category: "Apartment",
+    name: "Annex Flat in Shantinagar",
+    description: "One-bedroom annex flat with its own entrance, above the owner's family home.",
+    location: "Shantinagar, Dhaka",
+    rent: 17500,
+    deposit: 35000,
+    isHidden: true,
+    landlord: "landlord01@gmail.com",
+  },
 ]
 
 export const seedProperties = async () => {
@@ -319,7 +395,7 @@ export const seedProperties = async () => {
   }
 
   await prisma.property.createMany({
-    data: missing.map(({ category, bannedLandlord, ...property }, index) => {
+    data: missing.map(({ category, bannedLandlord, landlord, ...property }, index) => {
       const categoryId = categoryIds.get(category)
 
       if (!categoryId) {
@@ -331,7 +407,9 @@ export const seedProperties = async () => {
         createdAt: listedAt(missing[index]!),
         landlordId: bannedLandlord
           ? bannedLandlordId
-          : activeLandlordIds[index % activeLandlordIds.length]!,
+          : landlord
+            ? getOwnerId(landlord)
+            : activeLandlordIds[index % activeLandlordIds.length]!,
         categoryId,
         // Two photos, the most a property takes, so the gallery shows its thumbnails
         images: PLACEHOLDER_IMAGE_URLS,
