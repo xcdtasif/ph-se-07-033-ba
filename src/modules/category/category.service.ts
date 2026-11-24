@@ -1,11 +1,37 @@
 import httpStatus from "http-status"
 
+import type { Prisma } from "../../generated/prisma/client.js"
 import { prisma } from "../../lib/prisma.js"
 import { AppError } from "../../utils/app-error.js"
-import type { CreateCategoryPayload, UpdateCategoryPayload } from "./category.schema.js"
+import type {
+  AdminCategoryListQuery,
+  CreateCategoryPayload,
+  UpdateCategoryPayload,
+} from "./category.schema.js"
 
 const getAllCategories = () => {
   return prisma.category.findMany({ orderBy: { name: "asc" } })
+}
+
+const getAdminCategories = async (query: AdminCategoryListQuery) => {
+  const { page, limit, search } = query
+
+  const where: Prisma.CategoryWhereInput = search
+    ? { name: { contains: search, mode: "insensitive" } }
+    : {}
+
+  const [categories, total] = await Promise.all([
+    prisma.category.findMany({
+      where,
+      // Names are unique regardless of case, so the name alone keeps every page in the same order
+      orderBy: { name: "asc" },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.category.count({ where }),
+  ])
+
+  return { categories, meta: { page, limit, total } }
 }
 
 const assertCategoryExists = async (id: string) => {
@@ -62,6 +88,7 @@ const deleteCategory = async (id: string) => {
 export const categoryService = {
   assertCategoryExists,
   getAllCategories,
+  getAdminCategories,
   createCategory,
   updateCategory,
   deleteCategory,

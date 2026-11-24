@@ -3,6 +3,7 @@ import httpStatus from "http-status"
 
 import { sendResponse } from "../../utils/send-response.js"
 import type {
+  AdminCategoryListQuery,
   CategoryIdParams,
   CreateCategoryPayload,
   UpdateCategoryPayload,
@@ -17,6 +18,20 @@ const getAllCategories = async (_req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     message: "Categories fetched successfully",
     data: categories,
+  })
+}
+
+const getAdminCategories = async (req: Request, res: Response) => {
+  const { categories, meta } = await categoryService.getAdminCategories(
+    req.query as unknown as AdminCategoryListQuery,
+  )
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Categories fetched successfully",
+    data: categories,
+    meta,
   })
 }
 
@@ -57,6 +72,7 @@ const deleteCategory = async (req: Request<CategoryIdParams>, res: Response) => 
 
 export const categoryController = {
   getAllCategories,
+  getAdminCategories,
   createCategory,
   updateCategory,
   deleteCategory,

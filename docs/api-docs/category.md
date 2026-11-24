@@ -4,12 +4,13 @@
 
 `:name` is a path param, `?…` means query params and `{…}` means a request body. Details are in each section.
 
-| Name                                      | Endpoint                        | Access |
-| ----------------------------------------- | ------------------------------- | ------ |
-| [Get All Categories](#get-all-categories) | `GET /api/categories`           | Public |
-| [Create Category](#create-category)       | `POST /api/categories {…}`      | Admin  |
-| [Update Category](#update-category)       | `PATCH /api/categories/:id {…}` | Admin  |
-| [Delete Category](#delete-category)       | `DELETE /api/categories/:id`    | Admin  |
+| Name                                          | Endpoint                        | Access |
+| --------------------------------------------- | ------------------------------- | ------ |
+| [Get All Categories](#get-all-categories)     | `GET /api/categories`           | Public |
+| [Get Admin Categories](#get-admin-categories) | `GET /api/admin/categories?…`   | Admin  |
+| [Create Category](#create-category)           | `POST /api/categories {…}`      | Admin  |
+| [Update Category](#update-category)           | `PATCH /api/categories/:id {…}` | Admin  |
+| [Delete Category](#delete-category)           | `DELETE /api/categories/:id`    | Admin  |
 
 ## Category Object
 
@@ -35,6 +36,40 @@ Returns all categories sorted by name (A to Z). Not paginated.
 | Status | When    | Message                           |
 | ------ | ------- | --------------------------------- |
 | 200    | Success | `Categories fetched successfully` |
+
+---
+
+## Get Admin Categories
+
+`GET /api/admin/categories` · Admin
+
+Returns a paginated list of categories, sorted by name from A to Z, for managing them. The public
+list above returns them all at once.
+
+**Query**
+
+| Param    | Type    | Default | Rules                                               |
+| -------- | ------- | ------- | --------------------------------------------------- |
+| `page`   | integer | `1`     | Minimum 1                                           |
+| `limit`  | integer | `10`    | 1 to 50                                             |
+| `search` | string  |         | 1 to 100 characters. Case-insensitive match on name |
+
+**Example**
+
+```
+GET /api/admin/categories?page=1&limit=6&search=apart
+```
+
+**Responses**
+
+| Status | When              | Message                                |
+| ------ | ----------------- | -------------------------------------- |
+| 200    | Success           | `Categories fetched successfully`      |
+| 400    | Validation failed | `Validation of query failed`           |
+| 401    | Not logged in     | `Authentication required`              |
+| 403    | Not an admin      | `You don't have permission to do this` |
+
+`meta` is `{ page, limit, total }`.
 
 ---
 

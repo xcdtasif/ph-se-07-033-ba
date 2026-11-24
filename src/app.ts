@@ -7,6 +7,7 @@ import { env } from "./config/env.js"
 import { errorHandler } from "./middlewares/error-handler.js"
 import { notFound } from "./middlewares/not-found.js"
 import { authRouter } from "./modules/auth/auth.routes.js"
+import { adminCategoryRouter } from "./modules/category/category.admin.routes.js"
 import { categoryRouter } from "./modules/category/category.routes.js"
 import { stripeWebhookRouter } from "./modules/payment/payment.stripe.routes.js"
 import { tenantPaymentRouter } from "./modules/payment/payment.tenant.routes.js"
@@ -54,6 +55,7 @@ app.use("/api/admin/users", adminUserRouter)
 
 // Category
 app.use("/api/categories", categoryRouter)
+app.use("/api/admin/categories", adminCategoryRouter)
 
 // Property
 app.use("/api/properties", propertyRouter)
