@@ -218,23 +218,35 @@ allowed even when the property is hidden or its landlord is banned.
 
 `GET /api/landlord/requests` · Landlord
 
-Returns requests for the signed-in landlord's properties, newest first. Query params and
-`meta` are the same as [Get Own Requests](#get-own-requests).
+Returns requests for the signed-in landlord's properties, newest first.
+
+**Query**
+
+| Param        | Type    | Default | Rules                                                                 |
+| ------------ | ------- | ------- | --------------------------------------------------------------------- |
+| `page`       | integer | `1`     | Minimum 1                                                             |
+| `limit`      | integer | `10`    | 1 to 50                                                               |
+| `status`     | enum    |         | `PENDING`, `APPROVED`, `ACTIVE`, `COMPLETED`, `REJECTED`, `CANCELLED` |
+| `propertyId` | UUID    |         | Only this property's requests. It must be one of your own             |
 
 **Example**
 
 ```
-GET /api/landlord/requests?page=1&limit=10&status=PENDING
+GET /api/landlord/requests?page=1&limit=10&status=PENDING&propertyId=6f1c2d3e-0000-4000-8000-000000000000
 ```
 
 **Responses**
 
-| Status | When              | Message                                |
-| ------ | ----------------- | -------------------------------------- |
-| 200    | Success           | `Requests fetched successfully`        |
-| 400    | Validation failed | `Validation of query failed`           |
-| 401    | Not logged in     | `Authentication required`              |
-| 403    | Not a landlord    | `You don't have permission to do this` |
+| Status | When                                 | Message                                |
+| ------ | ------------------------------------ | -------------------------------------- |
+| 200    | Success                              | `Requests fetched successfully`        |
+| 400    | Validation failed                    | `Validation of query failed`           |
+| 401    | Not logged in                        | `Authentication required`              |
+| 403    | Not a landlord                       | `You don't have permission to do this` |
+| 403    | Property belongs to another landlord | `You don't own this property`          |
+| 404    | `propertyId` matches no property     | `Property not found`                   |
+
+`meta` is `{ page, limit, total }`.
 
 ---
 

@@ -5,10 +5,12 @@ import { prisma } from "../../lib/prisma.js"
 import { AppError } from "../../utils/app-error.js"
 import { activeCheckoutWhere } from "../payment/payment.checkout.js"
 import { visiblePropertyWhere } from "../property/property.filters.js"
+import { getOwnedProperty } from "../property/property.ownership.js"
 import { reviewService } from "../review/review.service.js"
 import type {
   AdminRequestListQuery,
   CreateRequestPayload,
+  LandlordRequestListQuery,
   RequestListQuery,
   UpdateLandlordRequestStatusPayload,
   UpdateTenantRequestStatusPayload,
@@ -181,9 +183,14 @@ const getTenantRequestById = async (id: string, tenantId: string) => {
   return toTenantRequest(request)
 }
 
-const getLandlordRequests = async (landlordId: string, query: RequestListQuery) => {
+const getLandlordRequests = async (landlordId: string, query: LandlordRequestListQuery) => {
+  if (query.propertyId) {
+    await getOwnedProperty(query.propertyId, landlordId)
+  }
+
   const where: Prisma.RequestWhereInput = {
     property: { landlordId },
+    ...(query.propertyId ? { propertyId: query.propertyId } : {}),
     ...(query.status ? { status: query.status } : {}),
   }
 

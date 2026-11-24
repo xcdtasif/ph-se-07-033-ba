@@ -25,6 +25,12 @@ export const requestListQuerySchema = z.strictObject({
 
 export type RequestListQuery = z.output<typeof requestListQuerySchema>
 
+export const landlordRequestListQuerySchema = requestListQuerySchema.extend({
+  propertyId: z.uuid().optional(),
+})
+
+export type LandlordRequestListQuery = z.output<typeof landlordRequestListQuerySchema>
+
 export const updateTenantRequestStatusSchema = z.strictObject({
   status: z.literal("CANCELLED"),
 })

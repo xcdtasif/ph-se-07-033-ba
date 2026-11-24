@@ -5,6 +5,7 @@ import { AppError } from "../../utils/app-error.js"
 import { sendResponse } from "../../utils/send-response.js"
 import type {
   AdminRequestListQuery,
+  LandlordRequestListQuery,
   CreateRequestPayload,
   RequestIdParams,
   RequestListQuery,
@@ -79,7 +80,7 @@ const updateTenantRequestStatus = async (
 const getLandlordRequests = async (req: Request, res: Response) => {
   const { requests, meta } = await requestService.getLandlordRequests(
     getUserId(req),
-    req.query as unknown as RequestListQuery,
+    req.query as unknown as LandlordRequestListQuery,
   )
 
   sendResponse(res, {
