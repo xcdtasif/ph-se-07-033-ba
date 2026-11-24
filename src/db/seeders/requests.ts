@@ -290,6 +290,34 @@ const REQUESTS: SeedRequest[] = [
     status: "PENDING",
     message: "Hi, I'm looking for a two-bedroom flat close to Rampura Bridge from next month.",
   },
+  /*
+  Pending, rejected and cancelled requests on one of Landlord 01's flats, beside its completed
+  rentals above. None approved, so it stays available and a pending one can be approved
+  */
+  {
+    tenant: "tenant03@gmail.com",
+    property: "Sunny 2-Bed Apartment in Dhanmondi",
+    status: "REJECTED",
+    message: "Could I rent this flat for just two months over the summer?",
+  },
+  {
+    tenant: "tenant02@gmail.com",
+    property: "Sunny 2-Bed Apartment in Dhanmondi",
+    status: "CANCELLED",
+    message: "I'd like to rent this again from next month, if it's free.",
+  },
+  {
+    tenant: "tenant01@gmail.com",
+    property: "Sunny 2-Bed Apartment in Dhanmondi",
+    status: "PENDING",
+    message: "We'd like this flat for a year from next month. Is the balcony shared?",
+  },
+  {
+    tenant: "tenant02@gmail.com",
+    property: "Sunny 2-Bed Apartment in Dhanmondi",
+    status: "PENDING",
+    message: "Hi, I'm moving back to Dhanmondi and would love this flat again for a year.",
+  },
 ]
 
 export const seedRequests = async () => {
