@@ -80,7 +80,7 @@ Unknown fields, such as `role`, `email` or `isBanned`, are rejected with `400`.
 
 `GET /api/admin/users` · Admin
 
-Returns a paginated list of all users, newest first.
+Returns a paginated list of all users, sorted by name from A to Z.
 
 **Query**
 

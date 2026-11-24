@@ -29,7 +29,8 @@ const getAllUsers = async (query: UserListQuery) => {
     prisma.user.findMany({
       where,
       omit: { password: true },
-      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      // By name, A to Z; the id keeps users with the same name in the same order on every page
+      orderBy: [{ name: "asc" }, { id: "asc" }],
       skip: (page - 1) * limit,
       take: limit,
     }),
