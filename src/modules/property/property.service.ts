@@ -33,13 +33,24 @@ const orderByMap: Record<PropertyListQuery["sort"], Prisma.PropertyOrderByWithRe
   RENT_DESC: { rent: "desc" },
 }
 
+// A case-insensitive match on the property's name, location or description
+const searchMatches = (search: string): Prisma.PropertyWhereInput[] => [
+  { name: { contains: search, mode: "insensitive" } },
+  { location: { contains: search, mode: "insensitive" } },
+  { description: { contains: search, mode: "insensitive" } },
+]
+
 const searchWhere = (search?: string): Prisma.PropertyWhereInput =>
+  search ? { OR: searchMatches(search) } : {}
+
+// The admin's search also matches the landlord's name or email
+const adminSearchWhere = (search?: string): Prisma.PropertyWhereInput =>
   search
     ? {
         OR: [
-          { name: { contains: search, mode: "insensitive" } },
-          { location: { contains: search, mode: "insensitive" } },
-          { description: { contains: search, mode: "insensitive" } },
+          ...searchMatches(search),
+          { landlord: { name: { contains: search, mode: "insensitive" } } },
+          { landlord: { email: { contains: search, mode: "insensitive" } } },
         ],
       }
     : {}
@@ -218,13 +229,14 @@ const getLandlordProperties = async (landlordId: string, query: LandlordProperty
 }
 
 const getAdminProperties = async (query: AdminPropertyListQuery) => {
-  const { page, limit, search, landlordId, status, isHidden } = query
+  const { page, limit, search, landlordId, status, isHidden, isLandlordBanned } = query
 
   const where: Prisma.PropertyWhereInput = {
     ...(landlordId ? { landlordId } : {}),
     ...(status ? { status } : {}),
     ...(isHidden !== undefined ? { isHidden } : {}),
-    ...searchWhere(search),
+    ...(isLandlordBanned !== undefined ? { landlord: { isBanned: isLandlordBanned } } : {}),
+    ...adminSearchWhere(search),
   }
 
   const [properties, total] = await Promise.all([

@@ -350,14 +350,15 @@ summary.
 
 **Query**
 
-| Param        | Type    | Default | Rules                                                                        |
-| ------------ | ------- | ------- | ---------------------------------------------------------------------------- |
-| `page`       | integer | `1`     | Minimum 1                                                                    |
-| `limit`      | integer | `10`    | 1 to 50                                                                      |
-| `search`     | string  |         | 1 to 100 characters. Case-insensitive match on name, location or description |
-| `landlordId` | UUID    |         | Filter by landlord                                                           |
-| `status`     | enum    |         | `AVAILABLE`, `UNAVAILABLE`, `RESERVED`, `RENTED`                             |
-| `isHidden`   | boolean |         | `true` or `false`                                                            |
+| Param              | Type    | Default | Rules                                                                                                       |
+| ------------------ | ------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| `page`             | integer | `1`     | Minimum 1                                                                                                   |
+| `limit`            | integer | `10`    | 1 to 50                                                                                                     |
+| `search`           | string  |         | 1 to 100 characters. Case-insensitive match on name, location, description, or the landlord's name or email |
+| `landlordId`       | UUID    |         | Filter by landlord                                                                                          |
+| `status`           | enum    |         | `AVAILABLE`, `UNAVAILABLE`, `RESERVED`, `RENTED`                                                            |
+| `isHidden`         | boolean |         | `true` or `false`                                                                                           |
+| `isLandlordBanned` | boolean |         | `true` for properties of banned landlords, `false` for the others                                           |
 
 **Example**
 

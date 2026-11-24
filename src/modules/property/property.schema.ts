@@ -80,12 +80,17 @@ export const adminPropertyListQuerySchema = z.strictObject({
     .enum(["true", "false"])
     .transform((value) => value === "true")
     .optional(),
+  isLandlordBanned: z
+    .enum(["true", "false"])
+    .transform((value) => value === "true")
+    .optional(),
 })
 
 export type AdminPropertyListQuery = z.output<typeof adminPropertyListQuerySchema>
 
 export const landlordPropertyListQuerySchema = adminPropertyListQuerySchema.omit({
   landlordId: true,
+  isLandlordBanned: true,
 })
 
 export type LandlordPropertyListQuery = z.output<typeof landlordPropertyListQuerySchema>
