@@ -9,7 +9,6 @@
 | [Get Property Reviews](#get-property-reviews)                     | `GET /api/properties/:propertyId/reviews?…` | Public   |
 | [Create Review](#create-review)                                   | `POST /api/tenant/reviews {…}`              | Tenant   |
 | [Get Own Reviews](#get-own-reviews)                               | `GET /api/tenant/reviews?…`                 | Tenant   |
-| [Get Own Review By ID](#get-own-review-by-id)                     | `GET /api/tenant/reviews/:id`               | Tenant   |
 | [Get Reviews For Own Properties](#get-reviews-for-own-properties) | `GET /api/landlord/reviews?…`               | Landlord |
 | [Get All Reviews (Admin)](#get-all-reviews-admin)                 | `GET /api/admin/reviews?…`                  | Admin    |
 | [Update Review Visibility](#update-review-visibility)             | `PATCH /api/admin/reviews/:id {…}`          | Admin    |
@@ -155,23 +154,6 @@ GET /api/tenant/reviews?page=1&limit=10
 | 403    | Not a tenant      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
-
----
-
-## Get Own Review By ID
-
-`GET /api/tenant/reviews/:id` · Tenant (owner)
-
-**Responses**
-
-| Status | When                             | Message                                |
-| ------ | -------------------------------- | -------------------------------------- |
-| 200    | Success                          | `Review fetched successfully`          |
-| 400    | Validation failed                | `Validation of params failed`          |
-| 401    | Not logged in                    | `Authentication required`              |
-| 403    | Not a tenant                     | `You don't have permission to do this` |
-| 403    | Review belongs to another tenant | `This review isn't yours`              |
-| 404    | Review not found                 | `Review not found`                     |
 
 ---
 

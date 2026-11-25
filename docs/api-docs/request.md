@@ -8,7 +8,6 @@
 | ------------------------------------------------------------------- | -------------------------------------- | -------- |
 | [Create Request](#create-request)                                   | `POST /api/tenant/requests {…}`        | Tenant   |
 | [Get Own Requests](#get-own-requests)                               | `GET /api/tenant/requests?…`           | Tenant   |
-| [Get Own Request By ID](#get-own-request-by-id)                     | `GET /api/tenant/requests/:id`         | Tenant   |
 | [Cancel Request](#cancel-request)                                   | `PATCH /api/tenant/requests/:id {…}`   | Tenant   |
 | [Get Requests For Own Properties](#get-requests-for-own-properties) | `GET /api/landlord/requests?…`         | Landlord |
 | [Update Request Status](#update-request-status)                     | `PATCH /api/landlord/requests/:id {…}` | Landlord |
@@ -157,23 +156,6 @@ GET /api/tenant/requests?page=1&limit=10&status=PENDING
 | 403    | Not a tenant      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
-
----
-
-## Get Own Request By ID
-
-`GET /api/tenant/requests/:id` · Tenant (owner)
-
-**Responses**
-
-| Status | When                              | Message                                |
-| ------ | --------------------------------- | -------------------------------------- |
-| 200    | Success                           | `Request fetched successfully`         |
-| 400    | Validation failed                 | `Validation of params failed`          |
-| 401    | Not logged in                     | `Authentication required`              |
-| 403    | Not a tenant                      | `You don't have permission to do this` |
-| 403    | Request belongs to another tenant | `This request isn't yours`             |
-| 404    | Request not found                 | `Request not found`                    |
 
 ---
 

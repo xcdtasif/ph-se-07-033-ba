@@ -3,7 +3,7 @@ import httpStatus from "http-status"
 
 import { AppError } from "../../utils/app-error.js"
 import { sendResponse } from "../../utils/send-response.js"
-import type { CreatePaymentPayload, PaymentIdParams, PaymentListQuery } from "./payment.schema.js"
+import type { CreatePaymentPayload, PaymentListQuery } from "./payment.schema.js"
 import { paymentService } from "./payment.service.js"
 
 const getUser = (req: Request<any, any, any, any>) => {
@@ -58,20 +58,8 @@ const getTenantPayments = async (req: Request, res: Response) => {
   })
 }
 
-const getTenantPaymentById = async (req: Request<PaymentIdParams>, res: Response) => {
-  const payment = await paymentService.getTenantPaymentById(req.params.id, getUserId(req))
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "Payment fetched successfully",
-    data: payment,
-  })
-}
-
 export const paymentController = {
   createPayment,
   handleWebhook,
   getTenantPayments,
-  getTenantPaymentById,
 }

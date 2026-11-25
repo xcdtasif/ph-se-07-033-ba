@@ -21,13 +21,6 @@ router.post("/", validate(createRequestSchema, "body"), requestController.create
 // Get Own Requests
 router.get("/", validate(requestListQuerySchema, "query"), requestController.getTenantRequests)
 
-// Get Own Request By ID
-router.get(
-  "/:id",
-  validate(requestIdParamsSchema, "params"),
-  requestController.getTenantRequestById,
-)
-
 // Cancel Request
 router.patch(
   "/:id",

@@ -63,17 +63,6 @@ const getTenantReviews = async (req: Request, res: Response) => {
   })
 }
 
-const getTenantReviewById = async (req: Request<ReviewIdParams>, res: Response) => {
-  const review = await reviewService.getTenantReviewById(req.params.id, getUserId(req))
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "Review fetched successfully",
-    data: review,
-  })
-}
-
 const getLandlordReviews = async (req: Request, res: Response) => {
   const { reviews, meta } = await reviewService.getLandlordReviews(
     getUserId(req),
@@ -121,7 +110,6 @@ export const reviewController = {
   getPropertyReviews,
   createReview,
   getTenantReviews,
-  getTenantReviewById,
   getLandlordReviews,
   getAdminReviews,
   updateReviewVisibility,

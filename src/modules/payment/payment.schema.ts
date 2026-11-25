@@ -2,12 +2,6 @@ import z from "zod"
 
 const paymentStatusSchema = z.enum(["PENDING", "COMPLETED", "FAILED"])
 
-export const paymentIdParamsSchema = z.strictObject({
-  id: z.uuid(),
-})
-
-export type PaymentIdParams = z.output<typeof paymentIdParamsSchema>
-
 export const createPaymentSchema = z.strictObject({
   requestId: z.uuid(),
 })

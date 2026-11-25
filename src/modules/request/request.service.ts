@@ -166,23 +166,6 @@ const getTenantRequests = async (tenantId: string, query: RequestListQuery) => {
   }
 }
 
-const getTenantRequestById = async (id: string, tenantId: string) => {
-  const request = await prisma.request.findUnique({
-    where: { id },
-    include: tenantRequestInclude,
-  })
-
-  if (!request) {
-    throw new AppError(httpStatus.NOT_FOUND, "Request not found")
-  }
-
-  if (request.tenantId !== tenantId) {
-    throw new AppError(httpStatus.FORBIDDEN, "This request isn't yours")
-  }
-
-  return toTenantRequest(request)
-}
-
 const getLandlordRequests = async (landlordId: string, query: LandlordRequestListQuery) => {
   if (query.propertyId) {
     await getOwnedProperty(query.propertyId, landlordId)
@@ -351,7 +334,6 @@ const getAdminRequests = async (query: AdminRequestListQuery) => {
 export const requestService = {
   createRequest,
   getTenantRequests,
-  getTenantRequestById,
   updateTenantRequestStatus,
   getLandlordRequests,
   updateLandlordRequestStatus,

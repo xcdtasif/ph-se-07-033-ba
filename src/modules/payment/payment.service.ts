@@ -285,26 +285,8 @@ const getTenantPayments = async (tenantId: string, query: PaymentListQuery) => {
   return { payments, meta: { page: query.page, limit: query.limit, total } }
 }
 
-const getTenantPaymentById = async (id: string, tenantId: string) => {
-  const payment = await prisma.payment.findUnique({
-    where: { id },
-    include: paymentInclude,
-  })
-
-  if (!payment) {
-    throw new AppError(httpStatus.NOT_FOUND, "Payment not found")
-  }
-
-  if (payment.request.tenantId !== tenantId) {
-    throw new AppError(httpStatus.FORBIDDEN, "This payment isn't yours")
-  }
-
-  return payment
-}
-
 export const paymentService = {
   createPayment,
   handleWebhook,
   getTenantPayments,
-  getTenantPaymentById,
 }

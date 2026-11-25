@@ -7,11 +7,10 @@ request. The amount is charged in BDT (Stripe amounts are in paisa, so the depos
 
 `:name` is a path param, `?…` means query params and `{…}` means a request body. Details are in each section.
 
-| Name                                            | Endpoint                               | Access |
-| ----------------------------------------------- | -------------------------------------- | ------ |
-| [Create Payment](#create-payment)               | `POST /api/tenant/payments/create {…}` | Tenant |
-| [Get Own Payments](#get-own-payments)           | `GET /api/tenant/payments?…`           | Tenant |
-| [Get Own Payment By ID](#get-own-payment-by-id) | `GET /api/tenant/payments/:id`         | Tenant |
+| Name                                  | Endpoint                               | Access |
+| ------------------------------------- | -------------------------------------- | ------ |
+| [Create Payment](#create-payment)     | `POST /api/tenant/payments/create {…}` | Tenant |
+| [Get Own Payments](#get-own-payments) | `GET /api/tenant/payments?…`           | Tenant |
 
 The Stripe webhook is called by Stripe, not by clients. See [Stripe Webhook](#stripe-webhook).
 
@@ -161,23 +160,6 @@ GET /api/tenant/payments?sessionId=cs_test_a1b2c3
 | 403    | Not a tenant      | `You don't have permission to do this` |
 
 `meta` is `{ page, limit, total }`.
-
----
-
-## Get Own Payment By ID
-
-`GET /api/tenant/payments/:id` · Tenant
-
-**Responses**
-
-| Status | When                 | Message                                |
-| ------ | -------------------- | -------------------------------------- |
-| 200    | Success              | `Payment fetched successfully`         |
-| 400    | Invalid `id`         | `Validation of params failed`          |
-| 401    | Not logged in        | `Authentication required`              |
-| 403    | Not a tenant         | `You don't have permission to do this` |
-| 403    | Payment isn't theirs | `This payment isn't yours`             |
-| 404    | Payment not found    | `Payment not found`                    |
 
 ---
 

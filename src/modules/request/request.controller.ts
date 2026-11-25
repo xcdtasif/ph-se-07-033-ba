@@ -48,17 +48,6 @@ const getTenantRequests = async (req: Request, res: Response) => {
   })
 }
 
-const getTenantRequestById = async (req: Request<RequestIdParams>, res: Response) => {
-  const request = await requestService.getTenantRequestById(req.params.id, getUserId(req))
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "Request fetched successfully",
-    data: request,
-  })
-}
-
 const updateTenantRequestStatus = async (
   req: Request<RequestIdParams, {}, UpdateTenantRequestStatusPayload>,
   res: Response,
@@ -127,7 +116,6 @@ const getAdminRequests = async (req: Request, res: Response) => {
 export const requestController = {
   createRequest,
   getTenantRequests,
-  getTenantRequestById,
   updateTenantRequestStatus,
   getLandlordRequests,
   updateLandlordRequestStatus,

@@ -138,23 +138,6 @@ const getTenantReviews = async (tenantId: string, { page, limit }: ReviewListQue
   return { reviews, meta: { page, limit, total } }
 }
 
-const getTenantReviewById = async (id: string, tenantId: string) => {
-  const review = await prisma.review.findUnique({
-    where: { id },
-    include: reviewInclude,
-  })
-
-  if (!review) {
-    throw new AppError(httpStatus.NOT_FOUND, "Review not found")
-  }
-
-  if (review.tenantId !== tenantId) {
-    throw new AppError(httpStatus.FORBIDDEN, "This review isn't yours")
-  }
-
-  return review
-}
-
 const getLandlordReviews = async (
   landlordId: string,
   { page, limit, propertyId }: LandlordReviewListQuery,
@@ -225,7 +208,6 @@ export const reviewService = {
   getRatingSummaries,
   createReview,
   getTenantReviews,
-  getTenantReviewById,
   getLandlordReviews,
   getAdminReviews,
   updateReviewVisibility,
