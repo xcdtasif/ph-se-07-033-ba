@@ -3,7 +3,12 @@
 REST API for a rental property marketplace. Landlords list properties, tenants request them and pay
 the deposit through Stripe, and admins moderate the platform.
 
-Live API: <https://ph-se-07-033-ba.vercel.app>
+| Link          | URL                                                            |
+| ------------- | -------------------------------------------------------------- |
+| Live site     | <https://ph-se-07-033-fa.vercel.app>                           |
+| Live API      | <https://ph-se-07-033-ba.vercel.app>                           |
+| Frontend repo | [ph-se-07-033-fa](https://github.com/xcdtasif/ph-se-07-033-fa) |
+| Backend repo  | [ph-se-07-033-ba](https://github.com/xcdtasif/ph-se-07-033-ba) |
 
 ## Overview
 
