@@ -10,7 +10,7 @@ const router = Router()
 
 router.use(authenticate, authorize("ADMIN"))
 
-// Get Admin Categories
+// Get All Categories (Admin)
 router.get(
   "/",
   validate(adminCategoryListQuerySchema, "query"),

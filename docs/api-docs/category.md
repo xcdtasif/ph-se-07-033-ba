@@ -4,13 +4,13 @@
 
 `:name` is a path param, `?…` means query params and `{…}` means a request body. Details are in each section.
 
-| Name                                          | Endpoint                        | Access |
-| --------------------------------------------- | ------------------------------- | ------ |
-| [Get All Categories](#get-all-categories)     | `GET /api/categories`           | Public |
-| [Get Admin Categories](#get-admin-categories) | `GET /api/admin/categories?…`   | Admin  |
-| [Create Category](#create-category)           | `POST /api/categories {…}`      | Admin  |
-| [Update Category](#update-category)           | `PATCH /api/categories/:id {…}` | Admin  |
-| [Delete Category](#delete-category)           | `DELETE /api/categories/:id`    | Admin  |
+| Name                                                    | Endpoint                        | Access |
+| ------------------------------------------------------- | ------------------------------- | ------ |
+| [Get All Categories](#get-all-categories)               | `GET /api/categories`           | Public |
+| [Get All Categories (Admin)](#get-all-categories-admin) | `GET /api/admin/categories?…`   | Admin  |
+| [Create Category](#create-category)                     | `POST /api/categories {…}`      | Admin  |
+| [Update Category](#update-category)                     | `PATCH /api/categories/:id {…}` | Admin  |
+| [Delete Category](#delete-category)                     | `DELETE /api/categories/:id`    | Admin  |
 
 ## Category Object
 
@@ -39,7 +39,7 @@ Returns all categories sorted by name (A to Z). Not paginated.
 
 ---
 
-## Get Admin Categories
+## Get All Categories (Admin)
 
 `GET /api/admin/categories` · Admin
 
