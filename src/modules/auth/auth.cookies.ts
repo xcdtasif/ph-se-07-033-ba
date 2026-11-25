@@ -20,9 +20,4 @@ const setAuthCookies = (res: Response, accessToken: string, refreshToken: string
   res.cookie("refreshToken", refreshToken, { ...baseOptions, maxAge: REFRESH_TOKEN_MAX_AGE })
 }
 
-const clearAuthCookies = (res: Response) => {
-  res.clearCookie("accessToken", baseOptions)
-  res.clearCookie("refreshToken", baseOptions)
-}
-
-export const authCookies = { setAuthCookies, clearAuthCookies }
+export const authCookies = { setAuthCookies }

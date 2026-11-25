@@ -157,7 +157,7 @@ validation rules and responses.
 
 | Module                                | Covers                                               |
 | ------------------------------------- | ---------------------------------------------------- |
-| [Auth](docs/api-docs/auth.md)         | Signup, login, logout, token refresh                 |
+| [Auth](docs/api-docs/auth.md)         | Signup, login, token refresh                         |
 | [User](docs/api-docs/user.md)         | Own profile, admin user list, ban and unban          |
 | [Category](docs/api-docs/category.md) | Property categories                                  |
 | [Property](docs/api-docs/property.md) | Public browse, landlord management, admin moderation |

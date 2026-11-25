@@ -8,7 +8,6 @@
 | --------------------------------- | --------------------------- | ------------- |
 | [Sign Up User](#sign-up-user)     | `POST /api/auth/signup {…}` | Public        |
 | [Log In User](#log-in-user)       | `POST /api/auth/login {…}`  | Public        |
-| [Log Out User](#log-out-user)     | `POST /api/auth/logout`     | Public        |
 | [Refresh Tokens](#refresh-tokens) | `POST /api/auth/refresh`    | Authenticated |
 
 ## User Object
@@ -95,20 +94,6 @@ Signs in and sets both auth cookies.
 | 400    | Validation failed       | `Validation of body failed`    |
 | 401    | Wrong email or password | `Invalid email or password`    |
 | 403    | Account is banned       | `Your account has been banned` |
-
----
-
-## Log Out User
-
-`POST /api/auth/logout` · Public
-
-Clears both auth cookies.
-
-**Responses**
-
-| Status | When    | Message                   |
-| ------ | ------- | ------------------------- |
-| 200    | Success | `Logged out successfully` |
 
 ---
 

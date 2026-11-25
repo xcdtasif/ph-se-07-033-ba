@@ -12,9 +12,6 @@ router.post("/signup", validate(signupUserSchema, "body"), authController.signup
 // Log In User
 router.post("/login", validate(loginUserSchema, "body"), authController.loginUser)
 
-// Log Out User
-router.post("/logout", authController.logoutUser)
-
 // Refresh Tokens
 router.post("/refresh", authController.refreshTokens)
 

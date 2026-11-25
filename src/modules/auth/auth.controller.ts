@@ -33,16 +33,6 @@ const loginUser = async (req: Request<{}, {}, LoginUserPayload>, res: Response) 
   })
 }
 
-const logoutUser = (_req: Request, res: Response) => {
-  authCookies.clearAuthCookies(res)
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "Logged out successfully",
-  })
-}
-
 const refreshTokens = async (req: Request, res: Response) => {
   const token: unknown = req.cookies?.["refreshToken"]
 
@@ -62,4 +52,4 @@ const refreshTokens = async (req: Request, res: Response) => {
   })
 }
 
-export const authController = { signupUser, loginUser, logoutUser, refreshTokens }
+export const authController = { signupUser, loginUser, refreshTokens }
