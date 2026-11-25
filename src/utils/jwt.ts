@@ -8,12 +8,12 @@ import { AppError } from "./app-error.js"
 
 const ALGORITHM = "HS256"
 
-export const tokenPayloadSchema = z.object({
+const tokenPayloadSchema = z.object({
   userId: z.string(),
   role: z.enum(UserRole),
 })
 
-export type TokenPayload = z.output<typeof tokenPayloadSchema>
+type TokenPayload = z.output<typeof tokenPayloadSchema>
 
 const createToken = (payload: TokenPayload, secret: string, expiresIn: StringValue): string =>
   jwt.sign(payload, secret, { algorithm: ALGORITHM, expiresIn })
