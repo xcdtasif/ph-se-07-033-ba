@@ -27,7 +27,8 @@
     "db:reseed": "npm run db:delete && npm run db:seed",
     "fmt": "oxfmt",
     "lint": "oxlint --fix",
-    "stripe:listen": "dotenv run -f .env.local -- sh -c 'stripe listen --events checkout.session.completed,checkout.session.expired --forward-to localhost:$PORT/api/stripe/webhook'"
+    "stripe:listen": "dotenv run -f .env.local -- sh -c 'stripe listen --events checkout.session.completed,checkout.session.expired --forward-to localhost:$PORT/api/stripe/webhook'",
+    "vc:env-sync": "bash scripts/vercel-env-sync.sh"
   },
   "dependencies": {
     "@prisma/adapter-neon": "^7.10.1",
