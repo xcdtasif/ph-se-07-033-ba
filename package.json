@@ -22,12 +22,12 @@
     "start": "node dist/server.js",
     "db:migrate": "prisma format && prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:delete": "tsx src/db/delete.ts",
     "db:seed": "tsx src/db/seed.ts",
+    "db:delete": "tsx src/db/delete.ts",
+    "db:reseed": "npm run db:delete && npm run db:seed",
     "fmt": "oxfmt",
     "lint": "oxlint --fix",
-    "stripe:listen": "dotenv run -f .env.local -- sh -c 'stripe listen --events checkout.session.completed,checkout.session.expired --forward-to localhost:$PORT/api/stripe/webhook'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "stripe:listen": "dotenv run -f .env.local -- sh -c 'stripe listen --events checkout.session.completed,checkout.session.expired --forward-to localhost:$PORT/api/stripe/webhook'"
   },
   "dependencies": {
     "@prisma/adapter-neon": "^7.10.1",
